@@ -135,6 +135,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Models\ParkingSpot.cs" />
     <Compile Include="SignalR\LotHub.cs" />
     <Compile Include="SignalR\Startup.cs" />
     <Compile Include="Global.asax.cs">
@@ -154,6 +155,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Main\Lot.cshtml" />
     <Content Include="Scripts\Plugins\jquery-1.10.2.min.map" />
+    <Content Include="Views\Main\History.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -163,7 +165,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
