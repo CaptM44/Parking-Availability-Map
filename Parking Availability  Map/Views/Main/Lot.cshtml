@@ -1,5 +1,5 @@
 ﻿
-@model bool
+@model int
 
 <div id="lotTitle">
     Exchange Street Deck <span class="faded">(Lot 39)</span>
@@ -14,4 +14,5 @@
 </div>
 
 <script>GetLotURL = '@Url.Action("GetLot", "Api")'; </script>
+<script>mode = '@Model' </script>
 <script src="~/Scripts/Lot.js"></script>

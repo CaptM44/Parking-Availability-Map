@@ -1,21 +1,24 @@
 ﻿using Microsoft.AspNet.SignalR;
+using Parking_Availability_Map.Models;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.Mvc;
+
 
 namespace Parking_Availability_Map.Controllers
 {
     public class ApiController : Controller
     {
-        public string GetLot()
+        public JsonResult GetLot()
         {
-            return readFile(currentLotPath);
-        }
+            var lot = new ParkingLot();
+            lot.Occupancy = readFile(currentLotPath).Split(',').Select(x => int.Parse(x)).ToArray();
+            lot.History = readFile(historicLotPath).Split(',').Select(x => int.Parse(x)).ToArray();
+            lot.Age = readFile(ageLotPath).Split(',').Select(x => int.Parse(x)).ToArray();
 
-        public string GetLotHistory()
-        {
-            return readFile(historicLotPath);
+            return Json(lot, JsonRequestBehavior.AllowGet);
         }
 
         public string Update(string lot)
@@ -45,28 +48,28 @@ namespace Parking_Availability_Map.Controllers
                 }
                 catch { }
             }
+          
+            //save current lot info to disk
+            writeFile(currentLotPath, String.Join(",", lot.ToArray()));
+            // save historic lot info to disk
+            string newHistlotStr = writeHistory(lot);
+            // save aged lot info to disk
+            string newAgelotStr = writeAge(lot);
 
             //push data to all clients
             var context = GlobalHost.ConnectionManager.GetHubContext<LotHub>();
-            context.Clients.All.render(lot);
-
-            //save current lot info to disk
-            writeFile(currentLotPath, lot);
-            string newHistlotStr = writeHistory(lot);
-            string newAgelotStr = writeAge(lot);
+            context.Clients.All.render(GetLot());
 
             return "Lot Age: \n\r" + newHistlotStr;
         }
 
-        public string ClearHistory()
+        public string Clear(string lot = "current")
         {
-            writeFile(historicLotPath, "0");
-            return "Successfully Cleared!";
-        }
+            string path = currentLotPath;
+            if (lot.ToLower() == "history") path = historicLotPath;
+            else if (lot.ToLower() == "age") path = ageLotPath;
 
-        public string ClearAge()
-        {
-            writeFile(ageLotPath, "0");
+            writeFile(path, "");
             return "Successfully Cleared!";
         }
 
@@ -75,12 +78,6 @@ namespace Parking_Availability_Map.Controllers
         //----------------------------------------------------------------
 
         //private string path = System.IO.Path.GetTempPath() + @"file.txt";
-
-        private string lotPath
-        {
-            get { return Server.MapPath("~/") + @"lot.txt"; }
-            set { lotPath = value; }
-        }
 
         private string currentLotPath
         {

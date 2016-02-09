@@ -23,29 +23,56 @@ $(function () {
     //bind data to real-time connection
     var me = $.connection.lotHub;
     $.connection.hub.start().done();
-    me.client.render = function (lot) { renderLot(lot); }
+    me.client.render = function (lot) { renderLot(lot.Data); }
 
     //render lot function
     function renderLot(lot) {
-        var total = lot.length;
+        var total = lot.Occupancy.length;
         var totalTaken = 0;
+        var minAge = lot.Age[0];
+        var maxAge = lot.Age[0];
+        var minHist = lot.History[0];
+        var maxHist = lot.History[0];
         for (var i = 0; i < 210; i++) {
-            if (lot[i] == '1') {
-                if (!$('#car' + i).hasClass('taken')) {
-                    $('#car' + i).fadeTo(300, 1);
-                    $('#car' + i).addClass('taken');
+            if (mode <= 1) {
+                if (lot.Occupancy[i] == '1') {
+                    if (!$('#car' + i).hasClass('taken')) {
+                        $('#car' + i).fadeTo(300, 1);
+                        $('#car' + i).addClass('taken');
+                    }
+                    totalTaken++;
                 }
-                totalTaken++;
-            }
-            else {
-                if ($('#car' + i).hasClass('taken')) {
-                    $('#car' + i).removeClass('taken');
-                    for (j = 0; j < 3; j++) {
-                        $('#car' + i).fadeTo(300, 1).fadeTo(300, 0.0);
+                else {
+                    if ($('#car' + i).hasClass('taken')) {
+                        $('#car' + i).removeClass('taken');
+                        for (j = 0; j < 3; j++) {
+                            $('#car' + i).fadeTo(300, 1).fadeTo(300, 0.0);
+                        }
                     }
                 }
             }
+
+            minAge = lot.Age[i] < minAge ? lot.Age[i] : minAge;
+            maxAge = lot.Age[i] > maxAge ? lot.Age[i] : maxAge;
+            minHist = lot.History[i] < minHist ? lot.History[i] : minHist;
+            maxHist = lot.History[i] > maxHist ? lot.History[i] : maxHist;
+
+            $('#car' + i).data('age', lot.Age[i] ? lot.Age[i] : 0);
+            $('#car' + i).data('history', lot.History[i] ? lot.History[i] : 0);
         }
+
+        if (mode == 2)
+            $('.car').each(function () {
+                $(this).css('opacity', 1);
+                var c = ($(this).data('history') - minHist) / (maxHist - minHist);
+                $(this).css("background", 'hsl(' + ((c * -100) + 100) + ',100%,50%)');
+            });
+        if (mode == 3)
+            $('.car').each(function () {
+                $(this).css('opacity', 1);
+                var c = ($(this).data('age') - minAge) / (maxAge - minAge);
+                $(this).css("background", 'hsl(' + ((c * -100) + 100) + ',100%,50%)');
+            });
 
         $('#total').html('<span class="red">' + totalTaken + '</span>/' + total + '</span>');
         $('#capacity').width((totalTaken / total * 100) - 1 + "%");
