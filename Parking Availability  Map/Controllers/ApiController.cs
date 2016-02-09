@@ -1,48 +1,15 @@
-﻿using System.Web.Mvc;
-using System.IO;
-using Microsoft.AspNet.SignalR;
-using System.Linq;
+﻿using Microsoft.AspNet.SignalR;
 using System;
-using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Web.Mvc;
 
-namespace Parking_Availability__Map.Controllers
+namespace Parking_Availability_Map.Controllers
 {
-    public class HomeController : Controller
-    {
-        //private string path = System.IO.Path.GetTempPath() + @"file.txt";
-
-        private string currentLotPath
+    public class ApiController : Controller
+    {     
+        public string Update(string lot)
         {
-            get { return Server.MapPath("~/") + @"current_lot.txt"; }
-            set { currentLotPath = value; }
-        }
-
-        private string historicLotPath
-        {
-            get { return Server.MapPath("~/") + @"historic_lot.txt"; }
-            set { historicLotPath = value; }
-        }
-
-        public ActionResult Index()
-        {
-            return View("Index", false);
-        }
-
-        public ActionResult MonitorView()
-        {
-            return View("Index", true);
-        }
-
-        public ActionResult GetLot()
-        {
-            var lot = readFile(currentLotPath);
-            return Json(lot, JsonRequestBehavior.AllowGet);
-        }
-
-        public string Update(string id)
-        {
-            string lot = id;
-
             //random data handler
             if (lot.StartsWith("rnd"))
             {
@@ -103,6 +70,26 @@ namespace Parking_Availability__Map.Controllers
             return "Successfully Cleared!";
         }
 
+        public string GetLot()
+        {
+            return readFile(currentLotPath);
+        }
+
+        //----------------------------------------------------------------
+
+        //private string path = System.IO.Path.GetTempPath() + @"file.txt";
+
+        private string currentLotPath
+        {
+            get { return Server.MapPath("~/") + @"current_lot.txt"; }
+            set { currentLotPath = value; }
+        }
+
+        private string historicLotPath
+        {
+            get { return Server.MapPath("~/") + @"historic_lot.txt"; }
+            set { historicLotPath = value; }
+        }
 
         private static string readFile(string path)
         {
@@ -122,13 +109,11 @@ namespace Parking_Availability__Map.Controllers
             }
         }
 
-        public static string ReverseString(string s)
+        private static string ReverseString(string s)
         {
             char[] arr = s.ToCharArray();
             Array.Reverse(arr);
             return new string(arr);
         }
-
     }
-
 }

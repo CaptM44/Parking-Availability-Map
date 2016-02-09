@@ -5,25 +5,25 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace Parking_Availability__Map
+namespace Parking_Availability_Map
 {
     public class RouteConfig
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
-            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");          
 
             routes.MapRoute(
-                name: "Main",
-                url: "{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+               name: "Api",
+               url: "Api/{action}/{lot}",
+               defaults: new { controller = "Api", action = "GetLot", lot = UrlParameter.Optional }
             );
 
             routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
+              name: "Main",
+              url: "{action}/{param}",
+              defaults: new { controller = "Main", action = "Lot", param = UrlParameter.Optional }
+           );
         }
     }
 }

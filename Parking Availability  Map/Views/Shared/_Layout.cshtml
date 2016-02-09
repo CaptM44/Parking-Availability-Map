@@ -12,9 +12,33 @@
     @*<script src="~/Scripts/Plugins/jquery-ui-1.11.4.js"></script>*@
     <script src="~/Scripts/Plugins/jquery.signalR-2.1.2.min.js"></script>
     <script src="~/signalr/hubs"></script>
+
+    <title>Parking Space Availability Map</title>
 </head>
 
 <body>
-    @RenderBody()
+    <div id="container">
+
+        <div id="toolbar">
+            Parking Space
+            <span class="thick"> Availability Map</span>
+            <sub>BETA</sub>
+        </div>
+
+            <div id="subToolbar">
+                <a href="#">Home</a> |
+                <a href="#">Find Lots</a> |
+                <a href="#">About</a> |
+                <a href="#">Contact</a> |
+                <a href="#">More...</a>
+            </div>
+ 
+        <div id="content">
+            @RenderBody()
+        </div>
+
+        <div id="footer">Copyright © 2016 - ECE Design Team M</div>
+
+    </div>
 </body>
 </html>

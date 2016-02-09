@@ -13,7 +13,7 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Parking_Availability__Map</RootNamespace>
+    <RootNamespace>Parking_Availability_Map</RootNamespace>
     <AssemblyName>Parking Availability  Map</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
@@ -133,9 +133,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LotHub.cs" />
-    <Compile Include="Controllers\Startup.cs" />
+    <Compile Include="Controllers\ApiController.cs" />
+    <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="SignalR\LotHub.cs" />
+    <Compile Include="SignalR\Startup.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -151,7 +152,7 @@
     <None Include="Properties\PublishProfiles\UAkronPark - Web Deploy.pubxml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Main\Lot.cshtml" />
     <Content Include="Scripts\Plugins\jquery-1.10.2.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
