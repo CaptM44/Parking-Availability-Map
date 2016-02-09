@@ -1,0 +1,201 @@
+﻿
+body {
+    font-family: Roboto;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    padding: 0px;
+    margin: 0px;
+    height: 100%;
+    overflow: hidden;
+}
+
+#container {
+    background: #fff;
+    height: 100%;
+}
+
+#toolbar {
+    background: #7BAECA;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
+    color: #fff;
+    font-weight: 100;
+    text-align: center;
+    font-size: 30px;
+    padding: 5px;
+    z-index: 1;
+}
+
+.thick {
+    font-weight: 400;
+    color: #00285e;
+}
+
+
+#subToolbar {
+    background: #FFD200;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
+    color: #337AB7;
+    text-align: center;
+    font-size: 15px;
+    text-transform: uppercase;
+    padding: 5px;
+    z-index: 1;
+}
+
+    #subToolbar a {
+        color: #337AB7;
+        text-decoration: none;
+        margin: 0px 5px;
+    }
+
+        #subToolbar a:hover {
+            color: #16456E;
+        }
+        
+#footer {
+    background: #00285E;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
+    color: #fff;
+    font-weight: 100;
+    text-align: center;
+    font-size: 16px;
+    padding: 5px;
+    z-index: 1;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+}
+
+    #footer a {
+        color: #fff;
+        text-decoration: none;
+        margin: 0px 5px;
+    }
+
+        #footer a:hover {
+            color: #ccc;
+        }
+
+sub {
+    font-weight: 100;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+#content {
+    height: 80%;
+    padding: 10px;
+    color: #00285e;
+    margin: auto;
+}
+
+#lotContainer {
+    position: relative;
+}
+
+#map {
+    height: 700px;
+}
+
+#lotTitle {
+    font-size: 30px;
+    margin-top: 30px;
+    text-align: left;
+}
+
+.faded {
+    color: #7BAECA;
+}
+
+#total {
+    float: right;
+    margin-right: 2%;
+}
+
+#capacity, #capacity-neg {
+    text-align: left;
+    height: 4px;
+    background: #FFD200;
+    border-radius: 5px 0 0 5px;
+    border: 1px solid #00285E;
+    display: inline-block;
+    width: 0%;
+    transition: width 2s;
+}
+
+#capacity-neg {
+    border-left: none;
+    background: #7BAECA;
+    border-radius: 0 5px 5px 0;
+    width: 98%;
+    transition: width 2s;
+}
+
+.red {
+    color: #FFD200;
+}
+
+.row {
+    position: absolute;
+    display: flex;
+}
+
+.car {
+    border-radius: 3px;
+    background: #FFD200;
+    color:#fff;
+    opacity:0;    
+    font-size: 12px;
+    text-align: center;
+    height: 34px;
+    width: 15px; 
+}
+
+.top .car, .bottom .car {
+    height: 15px;
+    width: 34px;
+}
+
+.taken {
+    background: #00285e;
+}
+
+.taken.handicap {
+    background-color: #1D08E3;
+}
+
+.left .handicap .fa {
+    line-height: 3;
+}
+
+
+
+/*-------------Mobile-------------*/
+@media screen and (max-device-width: 480px) {
+    #toolbar {
+        font-size: 100px;
+        line-height: 1.1;
+        text-align: left;
+        padding: 25px 70px;
+    }
+
+    #subToolbar, #footer {
+        font-size: 38px;
+        line-height: 3;
+    }
+
+    sub {
+        font-size: 34px;
+        line-height: 1.5;
+    }
+
+    #lotTitle {
+        font-size: 50px;
+        line-height: 1.5;
+    }
+}
