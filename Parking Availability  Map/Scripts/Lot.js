@@ -1,9 +1,23 @@
 ﻿
 $(function () {
 
-    $('#content').width(931);
-    $('#lotContainer').width(931);
-    $('#lotContainer').height(700);
+    //size the map appropriately
+
+    $(window).resize(function () { resizeWindow() });
+    resizeWindow();
+    function resizeWindow() {
+        var height = $(window).height() - 30 - $('#toolbar').height() - $('#subToolbar').height() - $('#footer').height();
+        var width = $(window).width();
+        var scale = width > height ? height / 830 : width / 1030;
+        $('#content').width(931);
+        $('#lotContainer').width(931);
+        $('#lotContainer').height(700);
+        $('#content').css('transform', 'scale(' + scale + ')');
+    }
+
+    if (mode == 1)
+        $('#subToolbar').css('visibility', 'hidden')
+
     GetLot();
 
     //get data from server
@@ -111,16 +125,16 @@ $(function () {
 
     //10 rows
     var rows = [
-        { spots: 24, style: "top: 623px; right: 185px; flex-direction: row-reverse", direction: 'left' },
-        { spots: 19, style: "bottom: 106px; left: 54px; flex-direction: column-reverse", direction: 'top' },
-        { spots: 28, style: "top: 27px; left: 184px; flex-direction: row", direction: 'right' },
-        { spots: 18, style: "top: 84px; right: 56px; flex-direction: column", direction: 'bottom' },
-        { spots: 26, style: "top: 512px; right: 173px; flex-direction: row-reverse", direction: 'left' },
-        { spots: 11, style: "top: 460px; left: 170px; flex-direction: row", direction: 'right' },
-        { spots: 12, style: "top: 350px; right: 173px; flex-direction: row-reverse", direction: 'left' },
-        { spots: 24, style: "top: 298px; left: 170px; flex-direction: row", direction: 'right' },
-        { spots: 23, style: "top: 190px; right: 173px; flex-direction: row-reverse", direction: 'left' },
-        { spots: 25, style: "top: 137px; left: 170px; flex-direction: row", direction: 'right' },
+        { spots: 24, style: "top: 623px; right: 185px; -webkit-flex-direction: row-reverse", direction: 'left' },
+        { spots: 19, style: "bottom: 106px; left: 54px; -webkit-flex-direction: column-reverse", direction: 'top' },
+        { spots: 28, style: "top: 27px; left: 184px; -webkit-flex-direction: row", direction: 'right' },
+        { spots: 18, style: "top: 84px; right: 56px; -webkit-flex-direction: column", direction: 'bottom' },
+        { spots: 26, style: "top: 512px; right: 173px; -webkit-flex-direction: row-reverse", direction: 'left' },
+        { spots: 11, style: "top: 460px; left: 170px; -webkit-flex-direction: row", direction: 'right' },
+        { spots: 12, style: "top: 350px; right: 173px; -webkit-flex-direction: row-reverse", direction: 'left' },
+        { spots: 24, style: "top: 298px; left: 170px; -webkit-flex-direction: row", direction: 'right' },
+        { spots: 23, style: "top: 190px; right: 173px; -webkit-flex-direction: row-reverse", direction: 'left' },
+        { spots: 25, style: "top: 137px; left: 170px; -webkit-flex-direction: row", direction: 'right' },
     ]
 
     //handicap spot0

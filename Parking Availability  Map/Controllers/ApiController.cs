@@ -52,15 +52,15 @@ namespace Parking_Availability_Map.Controllers
             //save current lot info to disk
             writeFile(currentLotPath, String.Join(",", lot.ToArray()));
             // save historic lot info to disk
-            string newHistlotStr = writeHistory(lot);
+            writeHistory(lot);
             // save aged lot info to disk
-            string newAgelotStr = writeAge(lot);
+            writeAge(lot);
 
             //push data to all clients
             var context = GlobalHost.ConnectionManager.GetHubContext<LotHub>();
             context.Clients.All.render(GetLot());
 
-            return "Lot Age: \n\r" + newHistlotStr;
+            return "Successfully Updated!";
         }
 
         public string Clear(string lot = "current")
@@ -69,7 +69,7 @@ namespace Parking_Availability_Map.Controllers
             if (lot.ToLower() == "history") path = historicLotPath;
             else if (lot.ToLower() == "age") path = ageLotPath;
 
-            writeFile(path, "");
+            writeFile(path, "0");
             return "Successfully Cleared!";
         }
 

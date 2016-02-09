@@ -92,6 +92,7 @@ sub {
     padding: 10px;
     color: #00285e;
     margin: auto;
+    transform-origin:top;
 }
 
 #lotContainer {
@@ -141,7 +142,8 @@ sub {
 }
 
 .row {
-    position: absolute;
+    position: absolute;  
+    display: -webkit-flex;
     display: flex;
 }
 
