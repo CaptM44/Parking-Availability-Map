@@ -56,7 +56,7 @@ body {
         #subToolbar a:hover {
             color: #16456E;
         }
-        
+
 #footer {
     background: #00285E;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
@@ -88,11 +88,11 @@ sub {
 }
 
 #content {
-    height: 80%;
-    padding: 10px;
+    position: absolute;
+    padding: 10px 0;
     color: #00285e;
     margin: auto;
-    transform-origin:top;
+    transform-origin: top;
 }
 
 #lotContainer {
@@ -119,30 +119,37 @@ sub {
 }
 
 #capacity, #capacity-neg {
-    text-align: left;
-    height: 4px;
+    white-space: pre;
     background: #FFD200;
     border-radius: 5px 0 0 5px;
     border: 1px solid #00285E;
     display: inline-block;
     width: 0%;
     transition: width 2s;
+    color: #fff;
+    text-align: center;
+    // font-weight:600;
+    padding: 2px 0px;
+    margin: 5px 0 15px 0;
 }
 
 #capacity-neg {
-    border-left: none;
+    //border-left: none;
     background: #7BAECA;
     border-radius: 0 5px 5px 0;
     width: 98%;
-    transition: width 2s;
 }
 
-.red {
+.yellow {
     color: #FFD200;
 }
 
+.red-text {
+    color: #a94442 !important;
+}
+
 .row {
-    position: absolute;  
+    position: absolute;
     display: -webkit-flex;
     display: flex;
 }
@@ -150,12 +157,12 @@ sub {
 .car {
     border-radius: 3px;
     background: #FFD200;
-    color:#fff;
-    opacity:0;    
+    color: #fff;
+    opacity: 0;
     font-size: 12px;
     text-align: center;
     height: 34px;
-    width: 15px; 
+    width: 15px;
 }
 
 .top .car, .bottom .car {
@@ -167,13 +174,23 @@ sub {
     background: #00285e;
 }
 
-.taken.handicap {
-    background-color: #1D08E3;
-}
+    .taken.handicap {
+        background-color: #1D08E3;
+    }
 
 .left .handicap .fa {
     line-height: 3;
 }
+
+.lot-full {
+    border-top-right-radius: 5px !important;
+    border-bottom-right-radius: 5px !important;
+    background-color: #a94442 !important;
+}
+
+    .lot-full + div {
+        border: none !important;
+    }
 
 
 
@@ -192,12 +209,26 @@ sub {
     }
 
     sub {
-        font-size: 34px;
+        font-size: 48px;
         line-height: 1.5;
     }
 
     #lotTitle {
         font-size: 50px;
         line-height: 1.5;
+    }
+
+    #capacity, #capacity-neg {
+        font-size: 38px;
+        padding: 10px 0px;
+        border-radius: 15px 0 0 15px;
+    }
+    #capacity-neg {
+        border-radius: 0 15px 15px 0;
+    }
+
+    .lot-full {
+        border-top-right-radius: 15px !important;
+        border-bottom-right-radius: 15px !important;
     }
 }

@@ -6,12 +6,11 @@ $(function () {
     $(window).resize(function () { resizeWindow() });
     resizeWindow();
     function resizeWindow() {
-        var height = $(window).height() - 30 - $('#toolbar').height() - $('#subToolbar').height() - $('#footer').height();
+        var height = $(window).height() - 40 - $('#toolbar').height() - $('#subToolbar').height() - $('#footer').height();
         var width = $(window).width();
-        var scale = width > height ? height / 830 : width / 1030;
-        $('#content').width(931);
-        $('#lotContainer').width(931);
-        $('#lotContainer').height(700);
+        var scale = width > height ? height / 840 : width / 1030;
+
+        $('#content').css('left', (width / 2 - 931 / 2) + 'px');
         $('#content').css('transform', 'scale(' + scale + ')');
     }
 
@@ -41,7 +40,7 @@ $(function () {
 
     //render lot function
     function renderLot(lot) {
-        var total = lot.Occupancy.length;
+        var total = 210//lot.Occupancy.length;
         var totalTaken = 0;
         var minAge = lot.Age[0];
         var maxAge = lot.Age[0];
@@ -88,9 +87,19 @@ $(function () {
                 $(this).css("background", 'hsl(' + ((c * -100) + 100) + ',100%,50%)');
             });
 
-        $('#total').html('<span class="red">' + totalTaken + '</span>/' + total + '</span>');
+        $('#total').html('<span class="yellow">' + totalTaken + '</span><span>/' + total + '</span>');
         $('#capacity').width((totalTaken / total * 100) - 1 + "%");
         $('#capacity-neg').width(((1 - totalTaken / total) * 100) - 1 + "%");
+        if (totalTaken >= total) {
+            $('#capacity').text("*The Lot is Full");
+            $('#capacity').addClass('lot-full');
+            $('#total').children().addClass('red-text');
+        } else {
+            $('#capacity').text(" ");
+            $('#capacity').removeClass('lot-full');
+            $('#total').children().removeClass('red-text')
+        }
+        
     }
 
     //buid spots
@@ -126,15 +135,15 @@ $(function () {
     //10 rows
     var rows = [
         { spots: 24, style: "top: 623px; right: 185px; -webkit-flex-direction: row-reverse", direction: 'left' },
-        { spots: 19, style: "bottom: 106px; left: 54px; -webkit-flex-direction: column-reverse", direction: 'top' },
+        { spots: 19, style: "bottom: 110px; left: 54px; -webkit-flex-direction: column-reverse", direction: 'top' },
         { spots: 28, style: "top: 27px; left: 184px; -webkit-flex-direction: row", direction: 'right' },
         { spots: 18, style: "top: 84px; right: 56px; -webkit-flex-direction: column", direction: 'bottom' },
         { spots: 26, style: "top: 512px; right: 173px; -webkit-flex-direction: row-reverse", direction: 'left' },
         { spots: 11, style: "top: 460px; left: 170px; -webkit-flex-direction: row", direction: 'right' },
         { spots: 12, style: "top: 350px; right: 173px; -webkit-flex-direction: row-reverse", direction: 'left' },
-        { spots: 24, style: "top: 298px; left: 170px; -webkit-flex-direction: row", direction: 'right' },
+        { spots: 24, style: "top: 298px; left: 171px; -webkit-flex-direction: row", direction: 'right' },
         { spots: 23, style: "top: 190px; right: 173px; -webkit-flex-direction: row-reverse", direction: 'left' },
-        { spots: 25, style: "top: 137px; left: 170px; -webkit-flex-direction: row", direction: 'right' },
+        { spots: 25, style: "top: 137px; left: 171px; -webkit-flex-direction: row", direction: 'right' },
     ]
 
     //handicap spot0
