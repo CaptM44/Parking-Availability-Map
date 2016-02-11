@@ -6,9 +6,9 @@ $(function () {
     $(window).resize(function () { resizeWindow() });
     resizeWindow();
     function resizeWindow() {
-        var height = $(window).height() - 40 - $('#toolbar').height() - $('#subToolbar').height() - $('#footer').height();
+        var height = $(window).height() - 80 - $('#toolbar').height() - $('#subToolbar').height() - $('#footer').height();
         var width = $(window).width();
-        var scale = width > height ? height / 840 : width / 1030;
+        var scale = width > height ? height / 880 : width / 1030;
 
         $('#content').css('left', (width / 2 - 931 / 2) + 'px');
         $('#content').css('transform', 'scale(' + scale + ')');
