@@ -97,6 +97,7 @@ sub {
 
 #lotContainer {
     position: relative;
+    clear:both;
 }
 
 #map {
@@ -107,6 +108,8 @@ sub {
     font-size: 30px;
     margin-top: 30px;
     text-align: left;
+    text-transform: capitalize;
+    width:100%;
 }
 
 .faded {
@@ -114,8 +117,8 @@ sub {
 }
 
 #total {
-    float: right;
-    margin-right: 2%;
+   float:right;
+   margin-right: 2%;
 }
 
 #capacity, #capacity-neg {
@@ -145,6 +148,31 @@ sub {
 .red-text {
     color: #a94442 !important;
 }
+.heatmap-container{
+       display:flex;
+       background:#7BAECA;
+       border:1px solid #00285e;
+       color:#fff;
+       padding:5px 5px 5px 10px;
+       border-radius:5px;
+}
+
+.heatmap{
+    background:linear-gradient(90deg, hsl(100,100%,50%), hsl(0,100%,50%));  
+    border-radius:5px;
+    padding:5px 15px;
+    display:inline-block;
+    margin:auto;
+    margin-left:20px;
+    color:#fff;
+    flex-grow:100;
+    font-size:18px;
+    font-weight:600;
+}
+
+    .heatmap span+span {
+        float:right;
+    }
 
 .row {
     position: absolute;
@@ -218,5 +246,12 @@ sub {
 
     #capacity, #capacity-neg {
         height: 20px;
+    }
+
+    .heatmap-container{
+        padding:0 5px 0 10px;
+    }
+    .heatmap{
+        font-size:32px;
     }
 }

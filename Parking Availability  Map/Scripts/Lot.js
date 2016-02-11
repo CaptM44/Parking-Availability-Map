@@ -40,32 +40,34 @@ $(function () {
 
     //render lot function
     function renderLot(lot) {
-        var total = 210//lot.Occupancy.length;
+        var total = 210
         var totalTaken = 0;
-        var minAge = lot.Age[0];
+
+        var minAge;
         var maxAge = lot.Age[0];
         var minHist = lot.History[0];
         var maxHist = lot.History[0];
+
         for (var i = 0; i < 210; i++) {
-            if (mode <= 1) {
-                if (lot.Occupancy[i] == '1') {
-                    if (!$('#car' + i).hasClass('taken')) {
-                        $('#car' + i).fadeTo(300, 1);
-                        $('#car' + i).addClass('taken');
-                    }
-                    totalTaken++;
+
+            if (lot.Occupancy[i] == 1) {
+                if (minAge == null && lot.Age[i] != 0) minAge = lot.Age[i];
+                if (!$('#car' + i).hasClass('taken')) {
+                    $('#car' + i).fadeTo(300, 1);
+                    $('#car' + i).addClass('taken');
                 }
-                else {
-                    if ($('#car' + i).hasClass('taken')) {
-                        $('#car' + i).removeClass('taken');
-                        for (j = 0; j < 3; j++) {
-                            $('#car' + i).fadeTo(300, 1).fadeTo(300, 0.0);
-                        }
+                totalTaken++;
+            }
+            else {
+                if ($('#car' + i).hasClass('taken')) {
+                    $('#car' + i).removeClass('taken');
+                    for (j = 0; j < 3; j++) {
+                        $('#car' + i).fadeTo(300, 1).fadeTo(300, 0.0);
                     }
                 }
             }
 
-            minAge = lot.Age[i] < minAge ? lot.Age[i] : minAge;
+            minAge = lot.Age[i] < minAge && lot.Age[i] != 0 ? lot.Age[i] : minAge;
             maxAge = lot.Age[i] > maxAge ? lot.Age[i] : maxAge;
             minHist = lot.History[i] < minHist ? lot.History[i] : minHist;
             maxHist = lot.History[i] > maxHist ? lot.History[i] : maxHist;
@@ -75,18 +77,11 @@ $(function () {
         }
 
         if (mode == 2)
-            $('.car').each(function () {
-                $(this).css('opacity', 1);
-                var c = ($(this).data('history') - minHist) / (maxHist - minHist);
-                $(this).css("background", 'hsl(' + ((c * -100) + 100) + ',100%,50%)');
-            });
+            buildHeatMap('history', minHist, maxHist)
         if (mode == 3)
-            $('.car').each(function () {
-                $(this).css('opacity', 1);
-                var c = ($(this).data('age') - minAge) / (maxAge - minAge);
-                $(this).css("background", 'hsl(' + ((c * -100) + 100) + ',100%,50%)');
-            });
+            buildHeatMap('age', minAge, maxAge)
 
+        //change and animate counts
         $('#total').html('<span class="yellow">' + totalTaken + '</span><span>/' + total + '</span>');
         $('#capacity').width((totalTaken / total * 100) - 1 + "%");
         $('#capacity-neg').width(((1 - totalTaken / total) * 100) - 1 + "%");
@@ -97,8 +92,27 @@ $(function () {
             $('#capacity').removeClass('lot-full');
             $('#total').children().removeClass('red-text')
         }
-        
+
     }
+
+    function buildHeatMap(data, min, max) {
+        if (min == max) max++;
+        $('.car').each(function () {
+            if (data == 'history') $(this).css('opacity', 1);
+            var c = ($(this).data(data) - min) / (max - min);
+            $(this).css("background", 'hsl(' + ((c * -100) + 100) + ',100%,50%)');
+        });
+
+        $('#capacity').remove();
+        $('#capacity-neg').remove();
+
+        var str = '<div class="heatmap-container"><span>car ' + data + " heat map</span>"
+        str+='<div class="heatmap"><span>';
+        str += (data == 'history' ? 'Low Freq.' : 'Recent') + '</span><span>';
+        str += (data == 'history' ? 'High Freq.' : 'Older') + '</span></div></div>';
+        $('#lotTitle').html(str);
+    }
+
 
     //buid spots
     function buildLot() {
@@ -113,7 +127,8 @@ $(function () {
                 str += handicaps.indexOf(index) > -1 ? ' handicap' : '';
 
                 var margin = gaps[index] ? gaps[index] : 7.9;
-                str += '" style="margin-' + rows[r].direction + ': ' + margin + 'px">';
+                str += '" style="margin-' + rows[r].direction + ': ' + margin + 'px" ';
+                str += 'data-history data-age>';
 
                 if (handicaps.indexOf(index) > -1) {
                     var faRotate = rows[r].direction == "left" ? "fa-rotate-180" : "fa-rotate-90";

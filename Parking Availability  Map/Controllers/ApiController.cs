@@ -115,7 +115,7 @@ namespace Parking_Availability_Map.Controllers
                     if (oldAgeLot.Length > i)
                         newAgelot[i] = oldAgeLot[i] + 1;
                     else
-                        newAgelot[i] = 0;
+                        newAgelot[i] = 1;
                 }
             }
 
