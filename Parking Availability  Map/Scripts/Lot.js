@@ -91,11 +91,9 @@ $(function () {
         $('#capacity').width((totalTaken / total * 100) - 1 + "%");
         $('#capacity-neg').width(((1 - totalTaken / total) * 100) - 1 + "%");
         if (totalTaken >= total) {
-            $('#capacity').text("*The Lot is Full");
             $('#capacity').addClass('lot-full');
             $('#total').children().addClass('red-text');
         } else {
-            $('#capacity').text(" ");
             $('#capacity').removeClass('lot-full');
             $('#total').children().removeClass('red-text')
         }

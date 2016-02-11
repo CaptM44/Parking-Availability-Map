@@ -119,16 +119,14 @@ sub {
 }
 
 #capacity, #capacity-neg {
-    white-space: pre;
+    height: 10px;
     background: #FFD200;
     border-radius: 5px 0 0 5px;
     border: 1px solid #00285E;
     display: inline-block;
     width: 0%;
-    transition: width 2s;
+    transition: width 2s, background-color 2s;
     color: #fff;
-    text-align: center;
-    // font-weight:600;
     padding: 2px 0px;
     margin: 5px 0 15px 0;
 }
@@ -219,16 +217,6 @@ sub {
     }
 
     #capacity, #capacity-neg {
-        font-size: 38px;
-        padding: 10px 0px;
-        border-radius: 15px 0 0 15px;
-    }
-    #capacity-neg {
-        border-radius: 0 15px 15px 0;
-    }
-
-    .lot-full {
-        border-top-right-radius: 15px !important;
-        border-bottom-right-radius: 15px !important;
+        height: 20px;
     }
 }
