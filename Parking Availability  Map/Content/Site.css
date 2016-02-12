@@ -150,11 +150,11 @@ sub {
 }
 .heatmap-container{
        display:flex;
-       background:#7BAECA;
-       border:1px solid #00285e;
-       color:#fff;
-       padding:5px 5px 5px 10px;
+       background:#f1f1f1;
+       padding:15px;
        border-radius:5px;
+       margin-bottom:10px;
+       box-shadow: 0 0 3px #000;
 }
 
 .heatmap{
@@ -168,6 +168,7 @@ sub {
     flex-grow:100;
     font-size:18px;
     font-weight:600;
+   box-shadow: 0 0 3px #000;
 }
 
     .heatmap span+span {
@@ -249,7 +250,7 @@ sub {
     }
 
     .heatmap-container{
-        padding:0 5px 0 10px;
+       margin-bottom:20px;
     }
     .heatmap{
         font-size:32px;

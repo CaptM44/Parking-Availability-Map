@@ -2,11 +2,35 @@
 @model int
 
 <div id="lotTitle">
-    <span>Exchange Street Deck </span><span class="faded">(Lot 39)</span>
-    <div id="total">10/10</div>
+    @if (Model == 2)
+    {
+        <div class="heatmap-container">
+            <span>Car History Heat Map</span>
+            <div class="heatmap">
+                <span>Low Freq.</span><span>High Freq.</span>
+            </div>
+        </div>
+    }
+    else if (Model == 3)
+    {
+        <div class="heatmap-container">
+            <span>Car Age Heat Map</span>
+            <div class="heatmap">
+                <span>Recent</span><span>Older</span>
+            </div>
+        </div>
+    }
+    else
+    {
+        <span>Exchange Street Deck </span><span class="faded">(Lot 39)</span>
+        <div id="total">10/10</div>
+    }
 </div>
 
-<div id="capacity"> </div><div id="capacity-neg"> </div>
+@if (Model < 2)
+{
+    <div id="capacity"> </div><div id="capacity-neg"> </div>
+}
 
 <div id="lotContainer">
     <img id="map" src="~/Images/map2.png" />

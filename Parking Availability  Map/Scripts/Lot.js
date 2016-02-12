@@ -104,13 +104,7 @@ $(function () {
         });
 
         $('#capacity').remove();
-        $('#capacity-neg').remove();
-
-        var str = '<div class="heatmap-container"><span>car ' + data + " heat map</span>"
-        str+='<div class="heatmap"><span>';
-        str += (data == 'history' ? 'Low Freq.' : 'Recent') + '</span><span>';
-        str += (data == 'history' ? 'High Freq.' : 'Older') + '</span></div></div>';
-        $('#lotTitle').html(str);
+        $('#capacity-neg').remove()
     }
 
 
