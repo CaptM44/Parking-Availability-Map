@@ -23,6 +23,9 @@ namespace Parking_Availability_Map.Controllers
 
         public string Update(string lot)
         {
+            if (lot == null)
+                return "Failed to Update";
+
             //random data handler
             if (lot.StartsWith("rnd"))
             {

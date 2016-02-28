@@ -2,14 +2,17 @@
 <html>
 <head>
     <link rel="shortcut icon" type="image/png" href="/favicon.png" />
+
+    <link href="~/Content/bootstrap/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" />
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,700' rel='stylesheet' type='text/css'>
 
-    @*<script src="~/Scripts/bootstrap.js"></script>*@
     <script src="~/Scripts/Plugins/jquery-1.10.2.js"></script>
     @*<script src="~/Scripts/Plugins/jquery-1.10.2.intellisense.js"></script>*@
     @*<script src="~/Scripts/Plugins/jquery-ui-1.11.4.js"></script>*@
+    <script src="~/Scripts/Plugins/bootstrap.js"></script>
     <script src="~/Scripts/Plugins/jquery.signalR-2.1.2.min.js"></script>
     <script src="~/signalr/hubs"></script>
 
@@ -25,17 +28,21 @@
             <sub>BETA</sub>
         </div>
 
-            <div id="subToolbar">
-                <a href="@Url.Action("Lot", "Main")">Home</a> |
-                <a href="@Url.Action("FindLot", "Main")">Find Lots</a> |
-                <a href="@Url.Action("About", "Main")">About</a> |
-                <a href="@Url.Action("History", "Main")">Stats</a> |
-                <a href="@Url.Action("Age", "Main")">Api</a>
-            </div>
- 
-        <div id="content">
-            @RenderBody()
+        <div id="subToolbar">
+            <a href="@Url.Action("Lot", "Main")">Home</a> |
+            <a href="@Url.Action("FindLot", "Main")">Find Lots</a> |
+            <a href="@Url.Action("About", "Main")">About</a> |
+            <div class="dropdown">
+                <button class="dropdown-toggle" type="button" data-toggle="dropdown">Stats<span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="@Url.Action("History", "Main")">History</a></li>
+                    <li><a href="@Url.Action("Age", "Main")">Age</a></li>
+                </ul>
+            </div> |
+            <a href="@Url.Action("ApiHelp", "Main")">Api</a>
         </div>
+
+        @RenderBody()
 
         <div id="footer">Copyright © 2016 - ECE Design Team M</div>
 

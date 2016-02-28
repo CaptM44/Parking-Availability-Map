@@ -81,6 +81,7 @@ $(function () {
         if (mode == 3)
             buildHeatMap('age', minAge, maxAge)
 
+        console.log((totalTaken / total * 100) - 1 + "%")
         //change and animate counts
         $('#total').html('<span class="yellow">' + totalTaken + '</span><span>/' + total + '</span>');
         $('#capacity').width((totalTaken / total * 100) - 1 + "%");
@@ -113,7 +114,7 @@ $(function () {
         var index = 0;
         var str = "";
         for (var r = 0; r < rows.length; r++) {
-            str += '<div class="row ' + rows[r].direction + '" style="';
+            str += '<div class="car-row ' + rows[r].direction + '" style="';
             str += rows[r].style + '">';
 
             for (var i = 0; i < rows[r].spots; i++) {

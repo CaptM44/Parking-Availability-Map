@@ -1,4 +1,9 @@
-﻿
+﻿* {
+    -webkit-box-sizing: content-box !important;
+    -moz-box-sizing: content-box !important;
+    box-sizing: content-box !important;
+}
+
 body {
     font-family: Roboto;
 }
@@ -53,9 +58,19 @@ body {
         margin: 0px 5px;
     }
 
-        #subToolbar a:hover {
-            color: #16456E;
-        }
+    #subToolbar *:hover {
+        color: #16456E;
+    }
+
+.dropdown {
+    display: inline-block;
+}
+
+    .dropdown button {
+        text-transform: uppercase;
+        background-color: transparent;
+        border: none;
+    }
 
 #footer {
     background: #00285E;
@@ -97,7 +112,7 @@ sub {
 
 #lotContainer {
     position: relative;
-    clear:both;
+    clear: both;
 }
 
 #map {
@@ -109,7 +124,7 @@ sub {
     margin-top: 30px;
     text-align: left;
     text-transform: capitalize;
-    width:100%;
+    width: 100%;
 }
 
 .faded {
@@ -117,8 +132,8 @@ sub {
 }
 
 #total {
-   float:right;
-   margin-right: 2%;
+    float: right;
+    margin-right: 2%;
 }
 
 #capacity, #capacity-neg {
@@ -148,34 +163,37 @@ sub {
 .red-text {
     color: #a94442 !important;
 }
-.heatmap-container{
-       display:flex;
-       background:#f1f1f1;
-       padding:15px;
-       border-radius:5px;
-       margin-bottom:10px;
-       box-shadow: 0 0 3px #000;
+
+.heatmap-container {
+    display: -webkit-flex;
+    display: flex;
+    background: #f1f1f1;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0 0 3px #000;
 }
 
-.heatmap{
-    background:linear-gradient(90deg, hsl(100,100%,50%), hsl(0,100%,50%));  
-    border-radius:5px;
-    padding:5px 15px;
-    display:inline-block;
-    margin:auto;
-    margin-left:20px;
-    color:#fff;
-    flex-grow:100;
-    font-size:18px;
-    font-weight:600;
-   box-shadow: 0 0 3px #000;
+.heatmap {
+    background: linear-gradient(90deg, hsl(100,100%,50%), hsl(0,100%,50%));
+    border-radius: 5px;
+    padding: 5px 15px;
+    display: inline-block;
+    margin: auto;
+    margin-left: 20px;
+    color: #fff;
+    -webkit-flex-grow:100;
+    flex-grow: 100;
+    font-size: 18px;
+    font-weight: 600;
+    box-shadow: 0 0 3px #000;
 }
 
-    .heatmap span+span {
-        float:right;
+    .heatmap span + span {
+        float: right;
     }
 
-.row {
+.car-row {
     position: absolute;
     display: -webkit-flex;
     display: flex;
@@ -249,10 +267,18 @@ sub {
         height: 20px;
     }
 
-    .heatmap-container{
-       margin-bottom:20px;
+    .heatmap-container {
+        margin-bottom: 20px;
     }
-    .heatmap{
-        font-size:32px;
+
+    .heatmap {
+        font-size: 32px;
+    }
+
+    #api-container div{
+        font-size:30px;
+    }
+    .page-title{
+         font-size:50px !important;
     }
 }
