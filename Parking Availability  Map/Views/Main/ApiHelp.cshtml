@@ -6,41 +6,50 @@
         <div class="page-title">Api Help</div>
         <table class="page-content">
             <tr>
-                <td>Update: </td>             
-                <td align="right"><a href="@Url.Action("Update", "Api")"> .../Api/Update/</a></td>
-                <td><input placeholder="11001100011101" /></td>            
+                <td>Update: </td>
+                <td align="right"><a href="@Url.Action("Update", "Api")/" data-base="@Url.Action("Update", "Api")/"> .../Api/Update/</a></td>
+                <td><input placeholder="110011000111..." /></td>
             </tr>
             <tr>
                 <td>Update Hex: </td>
-                <td align="right"><a href="@Url.Action("Update", "Api")/0x"> .../Api/Update/0x</a></td>
-                <td><input placeholder="F7AD201" /></td>
+                <td align="right"><a href="@Url.Action("Update", "Api")/0x" data-base="@Url.Action("Update", "Api")/0x"> .../Api/Update/0x</a></td>
+                <td><input placeholder="F7AD207B357..." /></td>
             </tr>
             <tr>
                 <td>Update Random: </td>
-                <td align="right"><a href="@Url.Action("Update", "Api")/rnd"> .../Api/Update/rnd</a></td>
-                <td><input placeholder="90" /></td>
+                <td align="right"><a href="@Url.Action("Update", "Api")/rnd" data-base="@Url.Action("Update", "Api")/rnd"> .../Api/Update/rnd</a></td>
+                <td><input placeholder="90    (ex. 90%)" /></td>
             </tr>
             <tr>
                 <td>Monitor View: </td>
-                <td align="right"><a href="@Url.Action("MonitorView", "Main")"> .../MonitorView/</a></td>
+                <td align="right"><a href="@Url.Action("MonitorView", "Main")"> .../MonitorView</a></td>
             </tr>
             <tr>
                 <td>Get Lot: </td>
-                <td align="right"><a href="@Url.Action("GetLot", "Api")"> .../GetLot/</a></td>
+                <td align="right"><a href="@Url.Action("GetLot", "Api")"> .../GetLot</a></td>
             </tr>
             <tr>
                 <td>Clear Lot: </td>
-                <td align="right"><a href="@Url.Action("Clear", "Api")"> .../Clear/</a></td>
+                <td align="right"><a href="@Url.Action("Clear", "Api")"> .../Clear</a></td>
             </tr>
             <tr>
                 <td>Clear History: </td>
-                <td align="right"><a href="@Url.Action("Clear", "Api")/History/"> .../Clear/History/</a></td>
+                <td align="right"><a href="@Url.Action("Clear", "Api")/History"> .../Clear/History</a></td>
             </tr>
             <tr>
                 <td>Clear Age: </td>
-                <td align="right"><a href="@Url.Action("Clear", "Api")/Age/"> .../Clear/Age/</a></td>
+                <td align="right"><a href="@Url.Action("Clear", "Api")/Age"> .../Clear/Age</a></td>
             </tr>
 
         </table>
     </div>
 </div>
+
+<script>
+    $(function () {
+        $('#api-container input').keyup(function () {
+            var link = $(this).parent().prev().find('a');
+            link.attr('href', link.data('base') + $(this).val());
+        })
+    })
+</script>

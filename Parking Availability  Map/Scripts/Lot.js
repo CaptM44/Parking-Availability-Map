@@ -61,9 +61,12 @@ $(function () {
             else {
                 if ($('#car' + i).hasClass('taken')) {
                     $('#car' + i).removeClass('taken');
-                    for (j = 0; j < 3; j++) {
-                        $('#car' + i).fadeTo(300, 1).fadeTo(300, 0.0);
-                    }
+                    if (mode != 2)
+                        for (j = 0; j < 3; j++) {
+                            $('#car' + i).fadeTo(300, 1).fadeTo(300, 0.0);
+                        }
+                    else
+                        $('#car' + i).fadeTo(300, 1);
                 }
             }
 

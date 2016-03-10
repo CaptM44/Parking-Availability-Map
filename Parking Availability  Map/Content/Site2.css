@@ -26,6 +26,10 @@
    border: none;
 }
 
+#api-container a{
+    text-decoration:none;
+}
+
 #api-container td:nth-child(1){
     white-space:pre;
 }
