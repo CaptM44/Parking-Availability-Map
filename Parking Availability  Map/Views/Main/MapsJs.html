@@ -1,0 +1,1376 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>The University of Akron - Campus map</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://maps.uakron.edu/js/modernizr"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://maps.uakron.edu/js/html5shiv"></script>
+    <script src="https://maps.uakron.edu/js/respond"></script>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script>window.isIE = true;</script>
+    <style type="text/css">
+        #map-canvas {
+            float:left;
+        }
+        #directionsPanel {
+            float:left;
+        }
+        #infoPanel {
+            float:left;
+        }
+    </style>
+
+    <![endif]-->
+
+    <link rel="StyleSheet" href="https://maps.uakron.edu/css/bootstrap.css" type="text/css" />
+    <script type="text/javascript">
+        document.write("\<script src='https://code.jquery.com/jquery-latest.min.js' type='text/javascript'>\<\/script>");
+    </script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true&key=AIzaSyDBbAMs95TX-7Bu90L92EYBK57R-f4dngQ">
+    </script>
+
+    <script type="text/javascript" src="https://maps.uakron.edu/js/bootstrap">
+    </script>
+
+    <script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-1921663-1']);
+	  _gaq.push(['_trackPageview']);
+	  _gaq.push(['_setDomainName', '.uakron.edu']);
+	  _gaq.push(['_setAllowLinker', true]);
+	  _gaq.push(['_setAllowHash', false]);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+    </script>
+
+
+    <!-- Styling for Nav  -->
+    <style type="text/css">
+        .input-append .btn.dropdown-toggle {
+            float: none;
+        }
+
+        .navbar-inverse {
+            background-color: #013f7d;
+            color: #fff;
+        }
+
+            .navbar-inverse .navbar-nav > li > a {
+                color: #fff;
+            }
+
+                .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+                    color: #fff;
+                    background-color: #1f98cd;
+                    ;
+                }
+
+            .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+                color: #fff;
+                background-color: #00285e;
+            }
+
+            .navbar-inverse .navbar-nav > .dropdown > a .caret {
+                border-top-color: #fff;
+                border-bottom-color: #fff;
+            }
+
+        .navbar-header img {
+            border: 1px solid #fff;
+        }
+
+        .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+            background-color: #1f98cd;
+        }
+
+        .navbar-brand {
+            padding: 9px 20px;
+        }
+
+        .navbar-collapse.in {
+            overflow-y: visible;
+        }
+
+        #footer > nav {
+            background-color: rgb(0,45,98);
+            min-height: .5em;
+            margin: 0 0 auto 0;
+            width: 16em;
+            opacity: 0.7;
+        }
+
+            #footer > nav > div {
+                font-size: .8em;
+                color: rgb(255, 255, 255);
+                text-align: right;
+            }
+
+                #footer > nav > div > a:link {
+                    color: rgb(255, 255, 255);
+                }
+
+                #footer > nav > div > a:visited {
+                    color: rgb(255, 255, 255);
+                }
+    </style>
+    <script>
+		//Initialize Variables with live data from controller
+		var buildings = [{"id":"105","name":"Trecasos Building","abbreviation":"TRE","address":"NULL","markdown":null,"image_file":"NULL","active":"Y","lng":"-81.5114468336","lat":"41.0793754117","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"104","name":"Superior Building","abbreviation":"SUP","address":"32 S. College St.","markdown":null,"image_file":"NULL","active":"Y","lng":"-81.510277","lat":"41.081745","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"102","name":"The Center for the History of Psychology (Roadway Building)","abbreviation":"RDWY","address":"NULL","markdown":null,"image_file":"roadway.jpg","active":"Y","lng":"-81.510977447","lat":"41.0805298774","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"97","name":"Honors Residence Hall","abbreviation":"HRH","address":"NULL","markdown":null,"image_file":"honorsComplex.jpg","active":"Y","lng":"-81.5114736557","lat":"41.0776163794","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"93","name":"Gas Turbine Testing Facility","abbreviation":"GTTF","address":"NULL","markdown":null,"image_file":"NULL","active":"Y","lng":"-81.5176212788","lat":"41.0756065769","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"92","name":"Fir Hill Plaza","abbreviation":"FHP","address":"NULL","markdown":null,"image_file":"NULL","active":"Y","lng":"-81.5068656206","lat":"41.0803317393","updated_at":"2014-12-11 14:53:51","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"82","name":"Bath Nature Preserve","abbreviation":"BNP","address":"NULL","markdown":null,"image_file":"NULL","active":"Y","lng":"-81.6500473022461","lat":"41.180979579572465","updated_at":"2013-09-30 20:12:50","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"187","name":"InfoCision Stadium  Summa Field","abbreviation":"SFIS","address":"427 Nash St Akron, OH 44304","markdown":null,"image_file":"summaFieldInfoCision.jpg","active":"Y","lng":"-81.5079966188","lat":"41.0723379218","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"76","name":"Parking Deck North","abbreviation":"PDN","address":"255 East Buchtel Avenue","markdown":null,"image_file":"parkingServs.jpg","active":"Y","lng":"-81.5122407675","lat":"41.0782067725","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"69","name":"Polymer Engineering Academic Center","abbreviation":"PEAC","address":null,"markdown":null,"image_file":"peac.jpg","active":"Y","lng":"-81.51364088063315","lat":"41.07942393599085","updated_at":"2014-09-23 18:13:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"254","name":"Gioninos Pizzeria (Main St)","abbreviation":null,"address":"1522 S. Main Street","markdown":null,"image_file":null,"active":"Y","lng":" -81.5275","lat":"41.0460","updated_at":"2013-12-03 17:02:37","created_at":"2013-12-03 17:02:27","updated_by":null,"html":""},{"id":"242","name":"Zip Card Office - Honors Complex","abbreviation":null,"address":null,"markdown":null,"image_file":null,"active":"Y","lng":"-81.51154813491826","lat":"41.07729681587099","updated_at":"2015-03-31 20:24:45","created_at":"2013-12-03 16:58:28","updated_by":null,"html":""},{"id":"246","name":"Rallys","abbreviation":null,"address":"711 East Market Street","markdown":null,"image_file":null,"active":"Y","lng":"-81.49509072307046","lat":"41.07633900877906","updated_at":"2013-12-03 16:59:49","created_at":"2013-12-03 16:59:06","updated_by":null,"html":""},{"id":"250","name":"Penn Station (Howe)","abbreviation":null,"address":"753 Howe Avenue","markdown":null,"image_file":null,"active":"Y","lng":"-81.472313404116","lat":"41.11924226441716","updated_at":"2013-12-03 17:01:50","created_at":"2013-12-03 17:00:11","updated_by":null,"html":""},{"id":"62","name":"Folk Hall","abbreviation":"FOLK","address":"150 East Exchange","markdown":null,"image_file":"folk.jpg","active":"Y","lng":"-81.5176910162","lat":"41.0735967129","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"60","name":"Schrank Hall (North)","abbreviation":"SHN","address":"240 Carroll Street","markdown":null,"image_file":"schrankNo.jpg","active":"Y","lng":"-81.5137588978","lat":"41.0750808639","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"59","name":"Schrank Hall (South)","abbreviation":"SHS","address":"240 Carroll Street","markdown":null,"image_file":"schrankSo.jpg","active":"Y","lng":"-81.5138018131","lat":"41.0745591907","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"58","name":"Electric Substation","abbreviation":"ESUB","address":"","markdown":null,"image_file":"","active":"Y","lng":"-81.5164196491","lat":"41.0749878527","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"57","name":"Express Building (PFOC)","abbreviation":"EB","address":"","markdown":null,"image_file":"","active":"Y","lng":"-81.5172296762","lat":"41.0766579903","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"56","name":"Buckingham Building","abbreviation":"BCCE","address":"220 Wolf Ledges Pkwy.","markdown":null,"image_file":"buckingham.jpg","active":"Y","lng":"-81.5165671706","lat":"41.0772079537","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"200","name":"South Residence Hall","abbreviation":"SH","address":null,"markdown":null,"image_file":"south-hall-400px.jpg","active":"Y","lng":"-81.51541113856729","lat":"41.073163997766315","updated_at":"2013-11-04 18:49:59","created_at":"2013-11-04 17:28:06","updated_by":null,"html":""},{"id":"53","name":"Business Administration Building","abbreviation":"CBA","address":"South Broadway Street","markdown":null,"image_file":"cba-building-400px.jpg","active":"Y","lng":"-81.517688334","lat":"41.0776628832","updated_at":"2013-11-05 19:51:39","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"52","name":"Polsky Building","abbreviation":"POL","address":"255 South Main Street","markdown":null,"image_file":"polsky.jpg","active":"Y","lng":"-81.5193647146","lat":"41.0785707108","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"51","name":"Administrative Services Building","abbreviation":"ASB","address":"185 East Mill Street","markdown":null,"image_file":"admin-services-bldg_small.jpg","active":"Y","lng":"-81.5110445023","lat":"41.0812031378","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"50","name":"Akron Polymer Training Center","abbreviation":"APTC","address":"Mill St.","markdown":null,"image_file":"polymerTrCtr.jpg","active":"Y","lng":"-81.5112483501","lat":"41.0806896004","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"49","name":"Lincoln Building","abbreviation":"LINC","address":"100 Lincoln Street","markdown":null,"image_file":"100lincoln.jpg","active":"Y","lng":"-81.5126699209","lat":"41.0803539793","updated_at":"2014-07-27 21:12:49","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"47","name":"Grounds Maintenance Building","abbreviation":"GMB","address":"216 South Forge Street","markdown":null,"image_file":"grounds.jpg","active":"Y","lng":"-81.51203691958443","lat":"41.079407761225696","updated_at":"2013-11-04 17:34:49","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"46","name":"Olson Research Center","abbreviation":"OLRC","address":"360 South Forge Street","markdown":null,"image_file":"olson.jpg","active":"Y","lng":"-81.5141665936","lat":"41.0798485226","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"45","name":"Forge Street Substation","abbreviation":"FSUB","address":"","markdown":null,"image_file":"","active":"Y","lng":"-81.5142953396","lat":"41.0794158486","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"258","name":"Gioninos Pizzeria (Tallmadge Ave)","abbreviation":null,"address":"1081 East Tallmadge Avenue","markdown":null,"image_file":null,"active":"Y","lng":"-81.47585391998291","lat":"41.10234768868981","updated_at":"2013-12-03 17:03:25","created_at":"2013-12-03 17:03:25","updated_by":null,"html":""},{"id":"44","name":"Physical Facilities Op Center","abbreviation":"PFOC","address":"146 Hill Street","markdown":null,"image_file":"physfac.jpg","active":"Y","lng":"-81.5141612291","lat":"41.078950822","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"262","name":"The Lockview","abbreviation":null,"address":"207 South Main Street","markdown":null,"image_file":null,"active":"Y","lng":"-81.51941299438477","lat":"41.079674644647234","updated_at":"2013-12-03 17:04:13","created_at":"2013-12-03 17:04:13","updated_by":null,"html":""},{"id":"43","name":"E.J. Thomas Performing Arts Hall","abbreviation":"PAH","address":"198 Hill Street","markdown":null,"image_file":"ejthomas.jpg","active":"Y","lng":"-81.5154057741","lat":"41.0781825099","updated_at":"2013-11-05 15:06:13","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"266","name":"Mr. Zubs (Highland Square)","abbreviation":null,"address":"812 West Market Street","markdown":null,"image_file":null,"active":"Y","lng":"-81.54369771483834","lat":"41.096486114524865","updated_at":"2013-12-03 17:05:10","created_at":"2013-12-03 17:04:46","updated_by":null,"html":""},{"id":"39","name":"Center For Child Development","abbreviation":"CCD","address":"108 Fir Hill Street","markdown":null,"image_file":"childDevel.jpg","active":"Y","lng":"-81.5075844526","lat":"41.0783806544","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"38","name":"Hower House","abbreviation":"HOW","address":"60 Fir Hill Street","markdown":null,"image_file":"hower.jpg","active":"Y","lng":"-81.5075522661","lat":"41.0796746446","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"37","name":"Ballet Center","abbreviation":"BC","address":"354 East Market St.","markdown":null,"image_file":"ballet.jpg","active":"Y","lng":"-81.50697022672796","lat":"41.08099287100001","updated_at":"2013-09-30 19:45:07","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"32","name":"Ocasek Natatorium","abbreviation":"ONAT","address":"402 Carroll Street","markdown":null,"image_file":"ocasek.jpg","active":"Y","lng":"-81.5075200796","lat":"41.0748907974","updated_at":"2013-12-04 14:22:03","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"31","name":"Student Recreation and Wellness Ctr","abbreviation":"SRWC","address":"382 Carroll Street","markdown":null,"image_file":"recCenter.jpg","active":"Y","lng":"-81.5090274811","lat":"41.0748746215","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"30","name":"James A. Rhodes Health and PE","abbreviation":"JAR","address":"373 Carroll Street","markdown":null,"image_file":"rhodes.jpg","active":"Y","lng":"-81.5084856749","lat":"41.0755540058","updated_at":"2014-08-08 13:53:26","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"28","name":"Olin Hall","abbreviation":"OLIN","address":"381 Buchtel Commons","markdown":null,"image_file":"olin.jpg","active":"Y","lng":"-81.5090113878","lat":"41.0768965779","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"26","name":"Kolbe Hall","abbreviation":"KO","address":"328 Buchtel Commons","markdown":"**Closer accessibility parking spaces are available in the [Rhodes Arena Circle (Lot 2)](https:\/\/maps.uakron.edu\/map?id=lot2)**","image_file":"kolbe.jpg","active":"Y","lng":"-81.5100306273","lat":"41.0762333831","updated_at":"2015-01-22 21:12:20","created_at":"0000-00-00 00:00:00","updated_by":"","html":"<p><strong>Closer accessibility parking spaces are available in the <a href=\"https:\/\/maps.uakron.edu\/map?id=lot2\">Rhodes Arena Circle (Lot 2)<\/a><\/strong><\/p>"},{"id":"25","name":"Leigh Hall","abbreviation":"LH","address":"308 Buchtel Commons","markdown":null,"image_file":"leigh.jpg","active":"Y","lng":"-81.5106207132","lat":"41.0763142609","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"23","name":"Buchtel Hall","abbreviation":"BH","address":"302 Buchtel Commons","markdown":null,"image_file":"buchtel.jpg","active":"Y","lng":"-81.51115179063606","lat":"41.0758734757544","updated_at":"2013-11-13 15:38:19","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"22","name":"Zook Hall","abbreviation":"ZOOK","address":"276 Buchtel Commons","markdown":null,"image_file":"zook.jpg","active":"Y","lng":"-81.5115702152","lat":"41.0764315335","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"74","name":"Louis and Freda Stile Athletic Field House","abbreviation":"AFLD","address":"384 Carroll Street","markdown":null,"image_file":"Field-House.jpg","active":"Y","lng":"-81.5084266663","lat":"41.0739040603","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"73","name":"Student Union","abbreviation":"STUN","address":"303 Carroll Street","markdown":null,"image_file":"studentUnion.jpg","active":"Y","lng":"-81.5127342939","lat":"41.0754650392","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"20","name":"Crouse Hall","abbreviation":"CRH","address":"252 Buchtel Commons","markdown":null,"image_file":"crouse_02.jpg","active":"Y","lng":"-81.5124392509","lat":"41.0762495586","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"19","name":"Ayer Hall","abbreviation":"AYER","address":"250 Buchtel Commons","markdown":null,"image_file":"ayer2.jpg","active":"Y","lng":"-81.5130668879","lat":"41.0762819098","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"18","name":"Bierce Library","abbreviation":"LIB","address":"315 Buchtel Commons","markdown":null,"image_file":"bierce.jpg","active":"Y","lng":"-81.5102720261","lat":"41.0769531918","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"70","name":"College of Arts and Sciences","abbreviation":"CAS","address":"","markdown":null,"image_file":"arts_sci.jpg","active":"Y","lng":"-81.5107172728","lat":"41.0777457811","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"72","name":"Honors Complex","abbreviation":"HCTR","address":"180 South College Street","markdown":null,"image_file":"honorsComplx.jpg","active":"Y","lng":"-81.5114736557","lat":"41.0776163794","updated_at":"2013-11-05 15:46:31","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"17","name":"Simmons Hall","abbreviation":"SI","address":"East Buchtel Avenue","markdown":null,"image_file":"simmons-hall-400px.jpg","active":"Y","lng":"-81.5115755796","lat":"41.0782876478","updated_at":"2013-11-04 18:50:27","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"16","name":"Orr Residence Hall","abbreviation":"ORH","address":"188 South College Street","markdown":null,"image_file":"orr.jpg","active":"Y","lng":"-81.5120959282","lat":"41.0775718975","updated_at":"2013-11-05 15:06:55","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"15","name":"Ritchie Residence Hall","abbreviation":"RRH","address":"269 Buchtel Commons","markdown":null,"image_file":"ritchie.jpg","active":"Y","lng":"-81.5117901564","lat":"41.0768197447","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"14","name":"Bulger Residence Hall","abbreviation":"BRH","address":"192 South College Street","markdown":null,"image_file":"bulger.jpg","active":"Y","lng":"-81.5124285221","lat":"41.0771109017","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"13","name":"Spanton Residence Hall","abbreviation":"SRH","address":"190 South College Street","markdown":null,"image_file":"spanton.jpg","active":"Y","lng":"-81.5127289295","lat":"41.0773818382","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"12","name":"Robertson Dining Hall","abbreviation":"RD","address":"248 East Buchtel Avenue","markdown":null,"image_file":"robertson.jpg","active":"Y","lng":"-81.5126752853","lat":"41.0776851241","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"11","name":"Sisler-McFawn Residence Hall","abbreviation":"SMRH","address":"211 Buchtel Commons","markdown":null,"image_file":"sisler.jpg","active":"Y","lng":"-81.5129810572","lat":"41.0770745071","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"10","name":"Guzzetta Hall","abbreviation":"GH","address":"157 East Center Street","markdown":null,"image_file":"guzzetta.jpg","active":"Y","lng":"-81.5141987801","lat":"41.0774303641","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"8","name":"Auburn Science and Engineering Ctr.","abbreviation":"ASEC","address":"244 Sumner Street","markdown":null,"image_file":"auburn_1.jpg","active":"Y","lng":"-81.5138205886","lat":"41.0759583979","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"7","name":"Whitby Hall","abbreviation":"WHIT","address":"200 Buchtel Commons","markdown":null,"image_file":"whitby.jpg","active":"Y","lng":"-81.5145903826","lat":"41.0763627875","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"6","name":"Goodyear Polymer Center","abbreviation":"GDYR","address":"170 University Avenue","markdown":null,"image_file":"goodyear.jpg","active":"Y","lng":"-81.5145367384","lat":"41.0767995254","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"5","name":"Mary Gladwin Hall","abbreviation":"MGH","address":"209 Carroll Street","markdown":null,"image_file":"gladwin.jpg","active":"Y","lng":"-81.5151321888","lat":"41.0754326877","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"4","name":"Knight Chemical Laboratory","abbreviation":"KNCL","address":"190 Buchtel Commons","markdown":null,"image_file":"knight.jpg","active":"Y","lng":"-81.5150785446","lat":"41.0763506558","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"3","name":"Computer Center","abbreviation":"COMP","address":"185 South Carroll Street","markdown":null,"image_file":"cc.jpg","active":"Y","lng":"-81.5154486895","lat":"41.0754347097","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"2","name":"West Hall","abbreviation":"WEST","address":"225 Wolf Ledges Parkway","markdown":null,"image_file":"west.jpg","active":"Y","lng":"-81.5160280466","lat":"41.0769774549","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"1","name":"McDowell Law Center","abbreviation":"LAW","address":"150 University Avenue","markdown":null,"image_file":"mcdowell.jpg","active":"Y","lng":"-81.5158993006","lat":"41.0773899259","updated_at":"2013-12-10 20:03:21","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"141","name":"U\/A @ Wadsworth High School","abbreviation":"WADS","address":"NULL","markdown":null,"image_file":"NULL","active":"Y","lng":"-81.70992493629456","lat":"41.023459653187594","updated_at":"2013-10-17 18:10:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"147","name":"Wayne College and Boyer HPE Bldg","abbreviation":"UAWC","address":"Wayne College and Boyer HPE Bldg B112","markdown":null,"image_file":"NULL","active":"Y","lng":"-81.7928266525","lat":"40.8594603139","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"153","name":"Exchange St Residence Hall","abbreviation":"EXC","address":"180 E. Exchange","markdown":null,"image_file":"esrh.jpg","active":"Y","lng":"-81.5159261227","lat":"41.0738797961","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"155","name":"Alpha Gamma Delta","abbreviation":"AGD","address":"450 Carroll Street","markdown":null,"image_file":"NULL","active":"Y","lng":"-81.5059643984","lat":"41.0751455673","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"157","name":"Sigma Nu","abbreviation":"SN","address":"233 Spicer Street","markdown":null,"image_file":"NULL","active":"Y","lng":"-81.5058369935","lat":"41.0747998079","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"159","name":"Kappa Kappa Gamma","abbreviation":"KKG","address":"237 Spicer Street","markdown":null,"image_file":"NULL","active":"Y","lng":"-81.5059053898","lat":"41.0746218726","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"161","name":"Alpha Phi Alpha","abbreviation":"APA","address":"249 Spicer Street","markdown":null,"image_file":"NULL","active":"Y","lng":"-81.5058584511","lat":"41.0743023965","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"163","name":"Phi Gamma Delta","abbreviation":"PGD","address":"261 Spicer Street","markdown":null,"image_file":"fiji_house_sm.jpg","active":"Y","lng":"-81.5057189763","lat":"41.0739222585","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"165","name":"Sigma Alpha Epsilon","abbreviation":"SAE","address":"275 Spicer Street","markdown":null,"image_file":"NULL","active":"Y","lng":"-81.5059188008","lat":"41.0736300764","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"167","name":"Alpha Delta Pi","abbreviation":"ADP","address":"291 Spicer Street","markdown":null,"image_file":"NULL","active":"Y","lng":"-81.505946964","lat":"41.0732883531","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"169","name":"Phi Delta Theta","abbreviation":"PDT","address":"194 Spicer Street","markdown":null,"image_file":"NULL","active":"Y","lng":"-81.5064485371","lat":"41.0758583111","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"171","name":"Delta Gamma","abbreviation":"DG","address":"400 E. Butchel Ave","markdown":null,"image_file":"NULL","active":"Y","lng":"-81.5071552992","lat":"41.0763274035","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"173","name":"Tau Kappa Epsilon","abbreviation":"TKE","address":"116 Fir Hill ","markdown":null,"image_file":"NULL","active":"Y","lng":"-81.5076608956","lat":"41.0781167986","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"175","name":"Lambda Chi Alpha","abbreviation":"LCA","address":"94 Fir Hill ","markdown":null,"image_file":"NULL","active":"Y","lng":"-81.5076541901","lat":"41.0789134175","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"177","name":"Theta Chi","abbreviation":"TC","address":"493 Vine Street","markdown":null,"image_file":"NULL","active":"Y","lng":"-81.5055567026","lat":"41.0736492856","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"179","name":"Phi Sigma Kappa","abbreviation":"PSK","address":"480 Carroll Street","markdown":null,"image_file":"NULL","active":"Y","lng":"-81.5050202608","lat":"41.0749271931","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"181","name":"Phi Kappa Tau","abbreviation":"PKT","address":"380 E. Bucthel Ave","markdown":null,"image_file":"NULL","active":"Y","lng":"-81.5080082417","lat":"41.0762657342","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"183","name":"Lonestar","abbreviation":"LONE","address":"502 Vine Street","markdown":null,"image_file":"NULL","active":"Y","lng":"-81.5055137873","lat":"41.0733702456","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"185","name":"Quaker Square Inn at The University of Akron","abbreviation":"QSI","address":"135 South Broadway","markdown":null,"image_file":"quakerStation.jpg","active":"Y","lng":"-81.5152877569","lat":"41.0811141789","updated_at":"2015-01-21 19:26:35","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"189","name":"Spicer Hall","abbreviation":"SPIC","address":"290 Spicer Street","markdown":null,"image_file":"spicerhall.jpg","active":"Y","lng":"-81.5066671371","lat":"41.0731639978","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"191","name":"National Polymer Innovation Center","abbreviation":"NPIC","address":"240 South Forge Street","markdown":null,"image_file":"nationalpolymer.jpg","active":"Y","lng":"-81.5131366253","lat":"41.0794284515","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"192","name":"FirstEnergy Stadium - Cub Cadet Field","abbreviation":"LJF","address":"267 Brown St","markdown":null,"image_file":"FirstEnergy-CubCadet.jpg","active":"Y","lng":"-81.5118438019","lat":"41.0743882901","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"194","name":"Coleman Common","abbreviation":"COL","address":"NULL","markdown":null,"image_file":"ColemanCommon.jpg","active":"Y","lng":"-81.5111410632","lat":"41.075565085","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"198","name":"Buchtel Field","abbreviation":"BF","address":"433 Kling St Akron, OH 44311","markdown":null,"image_file":"NULL","active":"Y","lng":"-81.511055","lat":"41.069896","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"274","name":"Barley House","abbreviation":null,"address":"222 South Main Street","markdown":null,"image_file":null,"active":"Y","lng":"-81.52073264122015","lat":"41.07899934665537","updated_at":"2013-12-03 17:07:07","created_at":"2013-12-03 17:06:57","updated_by":null,"html":""},{"id":"554","name":"UniversiTees","abbreviation":"UniTee","address":"282 E. Exchange St.","markdown":null,"image_file":null,"active":"Y","lng":"-81.513050","lat":"41.072785","updated_at":"2015-08-21 19:38:54","created_at":"2015-08-21 19:38:54","updated_by":null,"html":""},{"id":"282","name":"Hometown Grocery Delivery","abbreviation":null,"address":"255 Darrow Road","markdown":null,"image_file":null,"active":"Y","lng":"-81.44183","lat":"41.07081","updated_at":"2013-12-03 19:46:53","created_at":"2013-12-03 17:13:38","updated_by":null,"html":""},{"id":"286","name":"EuroGyro","abbreviation":null,"address":"444 East Exchange Street","markdown":null,"image_file":null,"active":"Y","lng":"-81.50769710540771","lat":"41.070955892852204","updated_at":"2013-12-03 19:51:44","created_at":"2013-12-03 19:51:44","updated_by":null,"html":""},{"id":"290","name":"Burger King (East Market)","abbreviation":null,"address":"671 East Market Street","markdown":null,"image_file":null,"active":"Y","lng":"-81.49649620056158","lat":"41.07700576181058","updated_at":"2013-12-03 19:52:34","created_at":"2013-12-03 19:52:27","updated_by":null,"html":""},{"id":"294","name":"Burger King (Howe)","abbreviation":null,"address":"290 Howe Avenue","markdown":null,"image_file":null,"active":"Y","lng":"-81.482206","lat":"41.119074","updated_at":"2013-12-03 19:53:05","created_at":"2013-12-03 19:53:05","updated_by":null,"html":""},{"id":"298","name":"Gepetto's Pizza","abbreviation":null,"address":"60 Fir Hill","markdown":null,"image_file":null,"active":"Y","lng":"-81.514471","lat":"41.042663","updated_at":"2013-12-04 15:01:13","created_at":"2013-12-03 19:54:05","updated_by":null,"html":""},{"id":"302","name":"CBA Concourse","abbreviation":null,"address":"Business Administration Building","markdown":null,"image_file":null,"active":"Y","lng":"-81.5176883339882","lat":"41.0776628831711","updated_at":"2013-12-04 15:03:15","created_at":"2013-12-04 15:03:15","updated_by":null,"html":""},{"id":"306","name":"Crave","abbreviation":null,"address":"57 East Market Street","markdown":null,"image_file":null,"active":"Y","lng":"-81.51599049568182","lat":"41.085012085214984","updated_at":"2015-02-06 15:14:09","created_at":"2013-12-04 15:03:48","updated_by":null,"html":""},{"id":"310","name":"Insomnia Cookies","abbreviation":null,"address":"367 South Main St.","markdown":null,"image_file":"","active":"Y","lng":"-81.52263","lat":"41.07575","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"314","name":"Trecaso's Mary Coyle - Fine Italian Cuisine & Ice Cream","abbreviation":null,"address":"780 W Market St","markdown":null,"image_file":"","active":"Y","lng":"-81.54247","lat":"41.09595","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"318","name":"Hanini Subs","abbreviation":null,"address":"390 Brown Street","markdown":null,"image_file":"","active":"Y","lng":"-81.510021","lat":"41.070919","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"322","name":"Chick-fil-A (Howe Ave)","abbreviation":null,"address":"420 Howe Avenue","markdown":null,"image_file":"","active":"Y","lng":"-81.4797","lat":"41.11879","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"546","name":"Sunsations and More Tanning Salon","abbreviation":"Sunsations","address":"926 E Tallmadge Ave","markdown":null,"image_file":"41.102156","active":"Y","lng":"-81.48136208465576","lat":"41.10178985105286","updated_at":"2015-03-26 17:12:04","created_at":"2015-03-26 14:38:35","updated_by":null,"html":""},{"id":"330","name":"Chipotle (Howe Ave)","abbreviation":null,"address":"371 Howe Avenue","markdown":null,"image_file":"","active":"Y","lng":"-81.479669","lat":"41.119184","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"338","name":"Papa John's Pizza","abbreviation":null,"address":"701 East Market Street","markdown":null,"image_file":"","active":"Y","lng":"-81.4952731133","lat":"41.0763910947","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"342","name":"Mr. Hero","abbreviation":null,"address":"484 West Market Street","markdown":null,"image_file":"","active":"Y","lng":"-81.5331673622","lat":"41.0919339382","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"346","name":"Buffalo Wild Wings (BW3)","abbreviation":null,"address":"456 East Exchange Street","markdown":null,"image_file":"","active":"Y","lng":"-81.5071606636","lat":"41.0709235391","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"350","name":"Taco Bell","abbreviation":null,"address":"414 East Exchange Street","markdown":null,"image_file":"","active":"Y","lng":"-81.508834362","lat":"41.0709073622","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"354","name":"Pizza Hut","abbreviation":null,"address":"396 East Market Street","markdown":null,"image_file":"","active":"Y","lng":"-81.505424","lat":"41.080162","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"550","name":"Panda","abbreviation":"PNDA","address":"276 E. Exchange St.","markdown":null,"image_file":null,"active":"Y","lng":"-81.5134664","lat":"41.0731136","updated_at":"2015-06-18 16:10:32","created_at":"2015-06-18 16:10:32","updated_by":null,"html":""},{"id":"362","name":"Five Guys (Chapel Hill)","abbreviation":null,"address":"753 Howe Ave","markdown":null,"image_file":"","active":"Y","lng":"-81.472871","lat":"41.119258","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"366","name":"Five Guys Burgers & Fries (Montrose)","abbreviation":null,"address":"3863 Medina Road","markdown":null,"image_file":"","active":"Y","lng":"-81.638163","lat":"41.136319","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"567","name":"Fred's Automotive","abbreviation":"Fred's","address":"465 N Main St","markdown":null,"image_file":null,"active":"Y","lng":"-81.510785","lat":"41.098167","updated_at":"2015-12-07 20:41:29","created_at":"2015-12-07 20:37:16","updated_by":null,"html":""},{"id":"542","name":"Quaker Station","abbreviation":"QS","address":"130 E Mill Street","markdown":null,"image_file":null,"active":"Y","lng":"-81.51414845767215","lat":"41.08101222082708","updated_at":"2015-01-21 19:21:56","created_at":"2015-01-21 18:41:25","updated_by":null,"html":""},{"id":"382","name":"Ocasek Natatorium","abbreviation":null,"address":"402 Carroll Street","markdown":null,"image_file":"","active":"Y","lng":"-81.5075200796","lat":"41.0748907974","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"386","name":"Dave's Market","abbreviation":null,"address":"881 East Exchange Street","markdown":null,"image_file":"","active":"Y","lng":"-81.4917969704","lat":"41.0711014845","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"390","name":"Chipotle (Highland Square)","abbreviation":null,"address":"825 West Market Street","markdown":null,"image_file":"","active":"Y","lng":"-81.543496","lat":"41.096933","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"394","name":"Cilantro Thai","abbreviation":null,"address":"326 South Main Street","markdown":null,"image_file":"","active":"Y","lng":"-81.522229","lat":"41.077143","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"398","name":"Marco's Pizza - N. Hawkins","abbreviation":null,"address":"9 North Hawkins Avenue","markdown":null,"image_file":"","active":"Y","lng":"-81.5692162514","lat":"41.1102700885","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"402","name":"Nunzio's Pizzeria","abbreviation":null,"address":"625 Grant Street","markdown":null,"image_file":null,"active":"Y","lng":"-81.51777148243866","lat":"41.06618354459998","updated_at":"2014-08-29 12:11:59","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"410","name":"The Diamond Deli","abbreviation":null,"address":"378 South Main Street","markdown":null,"image_file":"","active":"Y","lng":"-81.5229320526","lat":"41.0757925974","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"414","name":"CVS #4800 (E. Market)","abbreviation":null,"address":"590 East Market Street","markdown":null,"image_file":"","active":"Y","lng":"-81.498779","lat":"41.077521","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"422","name":"Earth Fare - The Healthy Supermarket","abbreviation":null,"address":"3737 West Market Street","markdown":null,"image_file":"","active":"Y","lng":"-81.633728","lat":"41.136573","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"426","name":"Taste of Bangkok","abbreviation":null,"address":"514 East Exchange Street","markdown":null,"image_file":"","active":"Y","lng":"-81.5050578117","lat":"41.0708264778","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"430","name":"Spaghetti Warehouse","abbreviation":null,"address":"510 South Main Street","markdown":null,"image_file":"","active":"Y","lng":"-81.524818","lat":"41.072778","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"434","name":"Starz Market","abbreviation":null,"address":"300 East Exchange Street","markdown":null,"image_file":"","active":"Y","lng":"-81.5123319626","lat":"41.0725897359","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"438","name":"Wendy's (E. Market)","abbreviation":null,"address":"623 East Market Street","markdown":null,"image_file":"","active":"Y","lng":"-81.497796","lat":"41.07753","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"442","name":"Subway (East Exchange)","abbreviation":null,"address":"484 East Exchange Street","markdown":null,"image_file":"","active":"Y","lng":"-81.506280899","lat":"41.0708264778","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"446","name":"Subway (South Main)","abbreviation":null,"address":"348 South Main Street","markdown":null,"image_file":"","active":"Y","lng":"-81.5225028992","lat":"41.0764396212","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"450","name":"Giant Eagle (Waterloo)","abbreviation":null,"address":"484 East Waterloo Road","markdown":null,"image_file":"","active":"Y","lng":"-81.509766","lat":"41.027773","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"454","name":"Giant Eagle Market District","abbreviation":null,"address":"2683 State Road","markdown":null,"image_file":null,"active":"Y","lng":"-81.5069139003989","lat":"41.14655539163724","updated_at":"2014-12-11 13:47:36","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"538","name":"Chima Family Center","abbreviation":"CFC","address":"27 Forge Street","markdown":null,"image_file":null,"active":"Y","lng":"-81.50693535808023","lat":"41.08036206660106","updated_at":"2014-12-11 16:00:42","created_at":"2014-12-11 14:54:28","updated_by":null,"html":""},{"id":"466","name":"Eat n' Park (Howe Ave)","abbreviation":null,"address":"200 Howe Avenue","markdown":null,"image_file":"","active":"Y","lng":"-81.483083","lat":"41.1188","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"470","name":"Giant Eagle (Howe Ave)","abbreviation":null,"address":"230 Howe Avenue","markdown":null,"image_file":"","active":"Y","lng":"-81.481492","lat":"41.117832","updated_at":"0000-00-00 00:00:00","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"474","name":"Exchange Street Complex - Zee's C-Store, Starbucks, The Crea","abbreviation":null,"address":"180 E. Exchange","markdown":null,"image_file":null,"active":"Y","lng":"-81.5159261227","lat":"41.0738797961","updated_at":"2014-08-29 12:23:25","created_at":"0000-00-00 00:00:00","updated_by":"","html":""},{"id":"478","name":"Union Market","abbreviation":null,"address":"303 Carroll Street","markdown":null,"image_file":null,"active":"Y","lng":" -81.5150678157806","lat":"41.0747088183052","updated_at":"2013-12-04 15:44:46","created_at":"2013-12-04 15:44:46","updated_by":null,"html":""},{"id":"482","name":"Zee's Convenience Store (Quaker Square)","abbreviation":null,"address":"Quaker Square 2nd Fl","markdown":null,"image_file":null,"active":"Y","lng":"-81.51452065","lat":"41.08096861","updated_at":"2013-12-04 15:45:48","created_at":"2013-12-04 15:45:31","updated_by":null,"html":""},{"id":"486","name":"Zee's Convenience Store (Robertson)","abbreviation":null,"address":"285 E. Buchtel Ave.","markdown":null,"image_file":null,"active":"Y","lng":"-81.51224076747894","lat":"41.07820677249755","updated_at":"2013-12-04 15:46:49","created_at":"2013-12-04 15:46:49","updated_by":null,"html":""},{"id":"490","name":"Freshen's (Student Union)","abbreviation":null,"address":"Student Union 1st Fl 303 Carroll Street","markdown":null,"image_file":null,"active":"Y","lng":"-81.5125143527984","lat":"41.07561466476524","updated_at":"2014-07-10 11:55:25","created_at":"2013-12-04 15:47:27","updated_by":null,"html":""},{"id":"534","name":"Central Hower Community Center","abbreviation":"CHCS","address":"123 S. Forge Street","markdown":null,"image_file":null,"active":"Y","lng":"-81.51090502742227","lat":"41.07913278931008","updated_at":"2014-09-02 12:41:48","created_at":"2014-09-02 12:41:22","updated_by":null,"html":""},{"id":"502","name":"Einstein Bros Bagels","abbreviation":null,"address":"Bierce Library","markdown":null,"image_file":null,"active":"Y","lng":"-81.51224076747894","lat":"41.07820677249755","updated_at":"2013-12-04 15:49:20","created_at":"2013-12-04 15:49:20","updated_by":null,"html":""},{"id":"506","name":"Ohio Burger Co.","abbreviation":null,"address":"Student Union 2nd Fl 303 Carroll Street","markdown":null,"image_file":null,"active":"Y","lng":"-81.51241779327387","lat":"41.07563084048146","updated_at":"2014-08-29 12:05:39","created_at":"2013-12-04 15:49:52","updated_by":null,"html":""},{"id":"510","name":"Schumacher's","abbreviation":null,"address":"Quaker Square Inn","markdown":null,"image_file":null,"active":"Y","lng":"-81.51452065","lat":"41.08096861","updated_at":"2013-12-04 15:50:20","created_at":"2013-12-04 15:50:20","updated_by":null,"html":""},{"id":"514","name":"Engineering Research Center","abbreviation":"AERC","address":"Wolf Ledges Parkway","markdown":null,"image_file":"engineering-research-building-2014.jpg","active":"Y","lng":"-81.51711702350076","lat":"41.07601096865308","updated_at":"2015-09-03 14:15:23","created_at":"2013-12-04 20:35:34","updated_by":null,"html":""},{"id":"518","name":"The Crystal Room Bistro","abbreviation":null,"address":"360 Grant St.","markdown":"Monday - Thursday, 11:30 a.m. to 1:30 p.m.\n","image_file":null,"active":"Y","lng":"-81.51687026027139","lat":"41.073042675245226","updated_at":"2014-02-14 20:46:02","created_at":"2014-02-14 20:42:06","updated_by":null,"html":"<p>Monday - Thursday, 11:30 a.m. to 1:30 p.m.<\/p>"},{"id":"522","name":"Akron Innovation Campus","abbreviation":"AICN","address":"411 Wolf Ledges","markdown":null,"image_file":null,"active":"Y","lng":"-81.5197724104255","lat":"41.07263017699879","updated_at":"2014-02-27 14:27:11","created_at":"2014-02-27 14:23:06","updated_by":null,"html":""},{"id":"530","name":"Food Truck","abbreviation":null,"address":null,"markdown":"Food Truck location on campus.  For more information see [this listing of available food trucks.](http:\/\/www.uakron.edu\/dining\/food-truck-schedule)","image_file":null,"active":"Y","lng":"-81.515417","lat":"41.076639","updated_at":"2014-08-21 13:49:04","created_at":"2014-08-21 13:47:38","updated_by":null,"html":"<p>Food Truck location on campus.  For more information see <a href=\"http:\/\/www.uakron.edu\/dining\/food-truck-schedule\">this listing of available food trucks.<\/a><\/p>"},{"id":"558","name":"Tabouleh Lebanese Grill","abbreviation":"Tabouleh","address":"396 Brown Street","markdown":null,"image_file":null,"active":"Y","lng":"-81.509747","lat":"41.070948","updated_at":"2015-08-21 19:40:33","created_at":"2015-08-21 19:39:50","updated_by":null,"html":""},{"id":"559","name":"Arby's","abbreviation":null,"address":"290 E Exchange St","markdown":null,"image_file":null,"active":"Y","lng":"-81.512851","lat":"41.072518","updated_at":"2015-11-20 18:48:04","created_at":"2015-11-20 18:48:04","updated_by":null,"html":""},{"id":"563","name":"Planet Sub","abbreviation":null,"address":"2022 Portage Trail #1020","markdown":null,"image_file":null,"active":"Y","lng":"-81.508404","lat":"41.148443","updated_at":"2015-11-20 18:49:04","created_at":"2015-11-20 18:49:04","updated_by":null,"html":""}];
+		var parkingLots = [{"id":"1","name":"East Campus Deck","lot_number":"1","address":"475 East Buchtel Ave.","spaces_total":"1051","meters_total":"0","accessibility_total":"22","description":null,"lights":"Y","surface_type":"Deck(Clearance: 8\\'2","active":"Y","lng":"-81.5053904057","lat":"41.0759786174","streetview_lng":"-81.50581","streetview_lat":"41.075311","streetview_heading":"27.40943366448847","streetview_pitch":"11.698563950327328","streetview_zoom":"0","created_at":"","updated_by":"","updated_at":"2013-11-13 15:44:29","html":""},{"id":"2","name":"Rhodes Arena Parking","lot_number":"2","address":"Rhodes Arena","spaces_total":"76","meters_total":"0","accessibility_total":"4","description":null,"lights":"Y","surface_type":"Paved","active":"Y","lng":"-81.50756835942349","lat":"41.07568039814698","streetview_lng":"-81.50823300000002","streetview_lat":"41.075307","streetview_heading":"-62.896473312540124","streetview_pitch":"-8.486714665252808","streetview_zoom":"1","created_at":"","updated_by":"","updated_at":"2015-02-11 17:45:54","html":""},{"id":"3","name":"Alumni Center Parking","lot_number":"3","address":"138 Fir Hill","spaces_total":"8","meters_total":"0","accessibility_total":"1","description":null,"lights":"N","surface_type":"Paved","active":"Y","lng":"-81.5075361728459","lat":"41.07740959058397","streetview_lng":"-81.50734799999998","streetview_lat":"41.077287","streetview_heading":"-75.57325010589264","streetview_pitch":"-10.69189672196069","streetview_zoom":"1.6600000000000001","created_at":"","updated_by":"","updated_at":"2015-02-11 17:45:40","html":""},{"id":"4","name":"Delta Gamma Lot","lot_number":"4","address":"394 Buchtel Common","spaces_total":"36","meters_total":"0","accessibility_total":"0","description":null,"lights":"Y","surface_type":"Gravel","active":"Y","lng":"-81.50753617291235","lat":"41.07626801885233","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 17:47:01","html":""},{"id":"6","name":"InfoCision Stadium - Summa Field Lot","lot_number":"6","address":"Union St.","spaces_total":"91","meters_total":"35","accessibility_total":"4","description":null,"lights":"Y","surface_type":"Paved","active":"Y","lng":"-81.50967657561603","lat":"41.07252907414864","streetview_lng":"-81.50915299999997","streetview_lat":"41.073425","streetview_heading":"182.03666771084286","streetview_pitch":"6.737798714393205","streetview_zoom":"1","created_at":"","updated_by":"","updated_at":"2015-02-11 17:48:07","html":""},{"id":"7","name":"Orchard Lot","lot_number":"7","address":"475 Orchard St.","spaces_total":"48","meters_total":"0","accessibility_total":"0","description":null,"lights":"Y","surface_type":"Gravel","active":"Y","lng":"-81.50515168900569","lat":"41.07466409634837","streetview_lng":"-81.504951","streetview_lat":"41.074409","streetview_heading":"-25.95826583321054","streetview_pitch":"-16.843033665985125","streetview_zoom":"1","created_at":"","updated_by":"","updated_at":"2015-02-11 17:49:28","html":""},{"id":"8","name":"Ocasek Natatorium Parking","lot_number":"8","address":"438 Carroll St","spaces_total":"175","meters_total":"28","accessibility_total":"5","description":null,"lights":"Y","surface_type":"Paved","active":"Y","lng":"-81.50662958624753","lat":"41.074846313615936","streetview_lng":"-81.50617499999998","streetview_lat":"41.074401","streetview_heading":"-53.69420963082264","streetview_pitch":"-4.791073155602361","streetview_zoom":"1","created_at":"","updated_by":"","updated_at":"2015-02-11 17:49:57","html":""},{"id":"9","name":"Spicer\/Exchange Lot","lot_number":"9","address":"436 Vine Street and Nash","spaces_total":"517","meters_total":"0","accessibility_total":"23","description":null,"lights":"Y","surface_type":"Gravel","active":"Y","lng":"-81.50680661206229","lat":"41.0715818233146","streetview_lng":"-81.50635899999997","streetview_lat":"41.071714","streetview_heading":"-81.19669032954441","streetview_pitch":"4.860685123778073","streetview_zoom":"0","created_at":"","updated_by":"","updated_at":"2015-02-11 17:51:01","html":""},{"id":"10","name":"Althetics Fieldhouse Parking","lot_number":"10","address":"449 Vine\/Spicer St.","spaces_total":"261","meters_total":"5","accessibility_total":"14","description":null,"lights":"Y","surface_type":"Paved","active":"Y","lng":"-81.5068387985375","lat":"41.07403346925141","streetview_lng":"-81.50617499999998","streetview_lat":"41.074401","streetview_heading":"-52.18984993357479","streetview_pitch":"-6.64912782890217","streetview_zoom":"1","created_at":"","updated_by":"","updated_at":"2015-02-11 17:51:43","html":""},{"id":"11","name":"Chima Building Parking","lot_number":"11","address":"Mill St.","spaces_total":"37","meters_total":"0","accessibility_total":"1","description":null,"lights":"N","surface_type":"Paved(Clearance: 9\\'","active":"Y","lng":"-81.5065222979","lat":"41.0804550702","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 17:53:15","html":""},{"id":"12","name":"Greek Church Lot","lot_number":"12","address":"Union St.","spaces_total":"107","meters_total":"0","accessibility_total":"0","description":null,"lights":"N","surface_type":"Paved","active":"Y","lng":"-81.5089523792","lat":"41.0791570516","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2014-08-27 13:16:13","html":""},{"id":"13","name":"Phi Delta Theta Lot","lot_number":"13","address":"431 Carroll St","spaces_total":"101","meters_total":"0","accessibility_total":"0","description":null,"lights":"Y","surface_type":"Gravel","active":"Y","lng":"-81.50675028565138","lat":"41.07560204232891","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 17:54:23","html":""},{"id":"14","name":"Olin Hall Parking (B)","lot_number":"14","address":"126 Fir Hill","spaces_total":"151","meters_total":"4","accessibility_total":"6","description":null,"lights":"Y","surface_type":"Paved\/Gravel","active":"Y","lng":"-81.50844007731553","lat":"41.077833280038575","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-03-19 20:50:30","html":""},{"id":"15","name":"Olin Hall Parking (A)","lot_number":"15","address":"382 East Buchtel Ave.","spaces_total":"50","meters_total":"10","accessibility_total":"5","description":null,"lights":"Y","surface_type":"Paved\/Gravel","active":"Y","lng":"-81.5079277754","lat":"41.0770623756","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-03-25 14:00:44","html":""},{"id":"40","name":"Grounds Department Lot","lot_number":"40","address":"E Mill St","spaces_total":"87","meters_total":null,"accessibility_total":"4","description":null,"lights":"N","surface_type":"paved","active":"Y","lng":"-81.5120744705685","lat":"41.080549104139905","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"2015-02-25 16:37:03","updated_by":null,"updated_at":"2015-02-25 16:41:06","html":""},{"id":"18","name":"Student Union Visitors","lot_number":"18","address":"302 Carroll St.","spaces_total":"33","meters_total":"22","accessibility_total":"11","description":null,"lights":"Y","surface_type":"Paved","active":"Y","lng":"-81.5126806498","lat":"41.0749312371","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 17:59:37","html":""},{"id":"19","name":"Day Care Ctr. Parking","lot_number":"19","address":"108 Fir Hill","spaces_total":"40","meters_total":"0","accessibility_total":"2","description":null,"lights":"Y","surface_type":"Paved","active":"Y","lng":"-81.50775343182687","lat":"41.078702647745324","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 18:00:00","html":""},{"id":"20","name":"Methodist Church Lot","lot_number":"20","address":"263 East Mill St.","spaces_total":"83","meters_total":"0","accessibility_total":"0","description":null,"lights":"Y","surface_type":"Paved","active":"Y","lng":"-81.5102827549","lat":"41.0812193122","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 18:00:18","html":""},{"id":"21","name":"Roadway Lot","lot_number":"21","address":"South College St.","spaces_total":"16","meters_total":"0","accessibility_total":"1","description":null,"lights":"N","surface_type":"Paved","active":"Y","lng":"-81.5105938911189","lat":"41.080798897088236","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 18:00:43","html":""},{"id":"22","name":"Accessibility Parking","lot_number":"22","address":"204 South College St.","spaces_total":"26","meters_total":"0","accessibility_total":"23","description":null,"lights":"N","surface_type":"Paved","active":"Y","lng":"-81.51192963118848","lat":"41.07718631200962","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 18:21:33","html":""},{"id":"23","name":"UAPD Lot","lot_number":"23","address":"South College St.","spaces_total":"17","meters_total":"0","accessibility_total":"0","description":null,"lights":"N","surface_type":"Paved","active":"Y","lng":"-81.511618495","lat":"41.0793754117","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 18:02:55","html":""},{"id":"24","name":"Central Hower Lot","lot_number":"24","address":"East Buchtel","spaces_total":"188","meters_total":"4","accessibility_total":"4","description":null,"lights":"Y","surface_type":"Paved","active":"Y","lng":"-81.51092648510007","lat":"41.078599016980135","streetview_lng":"-81.51116300000001","streetview_lat":"41.078655","streetview_heading":"90.30842497953853","streetview_pitch":"-0.8967897549716622","streetview_zoom":"1","created_at":"","updated_by":"","updated_at":"2015-02-11 18:03:23","html":""},{"id":"25","name":"Visitor Parking","lot_number":"25","address":"248 East Buchtel","spaces_total":"97","meters_total":"52","accessibility_total":"5","description":"$1.00 per hour with a $6.00 a day maximum. \n\n[Visitor Parking Information](http:\/\/www.uakron.edu\/about_ua\/visiting\/parking.dot)\n","lights":"Y","surface_type":"Deck(Clearance: 6\\\\\\","active":"Y","lng":"-81.5126484632","lat":"41.0779317956","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 18:03:43","html":"<p>$1.00 per hour with a $6.00 a day maximum. <\/p>\n<p><a href=\"http:\/\/www.uakron.edu\/about_ua\/visiting\/parking.dot\">Visitor Parking Information<\/a><\/p>"},{"id":"26","name":"North Campus Deck","lot_number":"26","address":"229 East Buchtel","spaces_total":"1136","meters_total":"0","accessibility_total":"33","description":null,"lights":"Y","surface_type":"Deck(Clearance: 8'8\"","active":"Y","lng":"-81.5122407675","lat":"41.0782067725","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 18:03:55","html":""},{"id":"27","name":"North Campus Lot","lot_number":"27","address":"East Buchtel","spaces_total":"164","meters_total":"11","accessibility_total":"8","description":null,"lights":"Y","surface_type":"Paved","active":"Y","lng":"-81.51369452478366","lat":"41.078536209663696","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 18:04:41","html":""},{"id":"28","name":"E.J. Thomas Deck","lot_number":"28","address":"198 Hill St","spaces_total":"267","meters_total":"0","accessibility_total":"4","description":null,"lights":"Y","surface_type":"Deck","active":"Y","lng":"-81.51442676779175","lat":"41.0785564139419","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 18:05:32","html":""},{"id":"29","name":"Olson Research Ctr. Parking","lot_number":"29","address":"200 South Forge St.","spaces_total":"103","meters_total":"0","accessibility_total":"2","description":null,"lights":"Y","surface_type":"Paved","active":"Y","lng":"-81.51357650758916","lat":"41.08027715016191","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 16:02:45","html":""},{"id":"30","name":"College\/Market Lot","lot_number":"30","address":"250 E. Market St.","spaces_total":"55","meters_total":"0","accessibility_total":"4","description":null,"lights":"Y","surface_type":"Gravel","active":"Y","lng":"-81.50978923322936","lat":"41.081651969326735","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 18:06:57","html":""},{"id":"32","name":"Former Ballet Center Lot","lot_number":"32","address":"24 Fir Hill","spaces_total":"28","meters_total":"0","accessibility_total":"0","description":null,"lights":"Y","surface_type":"Gravel","active":"Y","lng":"-81.5075415373","lat":"41.0807381238","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 18:07:11","html":""},{"id":"34","name":"Computer Ctr. Parking","lot_number":"34","address":"275 Wolf Ledges","spaces_total":"294","meters_total":"7","accessibility_total":"11","description":null,"lights":"Y","surface_type":"Paved\/Gravel","active":"Y","lng":"-81.5162801743","lat":"41.0759260466","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 18:07:27","html":""},{"id":"36","name":"South Campus Parking Deck","lot_number":"36","address":"261 East Exchange Street","spaces_total":"1350","meters_total":"0","accessibility_total":"24","description":null,"lights":"Y","surface_type":"Deck ","active":"Y","lng":"-81.51492823809815","lat":"41.07404111952279","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-04-30 19:53:14","html":""},{"id":"37","name":"Schrank Deck","lot_number":"37","address":"240 Carroll","spaces_total":"281","meters_total":"0","accessibility_total":"7","description":null,"lights":"N","surface_type":"Deck(Clearance: 6'8\"","active":"Y","lng":"-81.5141759812496","lat":"41.07496420572212","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 18:09:10","html":""},{"id":"39","name":"Exchange St. Deck","lot_number":"39","address":"209 Carroll Street","spaces_total":"1308","meters_total":"0","accessibility_total":"24","description":null,"lights":"Y","surface_type":"Deck(Clearance: 6'0\"","active":"Y","lng":"-81.5150678158","lat":"41.0747088183","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 18:09:56","html":""},{"id":"43","name":"Gas Turbine Testing Parking","lot_number":"43","address":"220 Wolf Ledges Pkwy.","spaces_total":"142","meters_total":"7","accessibility_total":"2","description":null,"lights":"Y","surface_type":"Paved","active":"Y","lng":"-81.51767492290969","lat":"41.075551012808305","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 18:12:17","html":""},{"id":"44","name":"Grant High Rise Parking","lot_number":"44","address":"151 Wheeler","spaces_total":"96","meters_total":"0","accessibility_total":"1","description":null,"lights":"N","surface_type":"Paved","active":"Y","lng":"-81.516294","lat":"41.072122","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"0000-00-00 00:00:00","html":""},{"id":"45","name":"Lincoln Bldg. Parking","lot_number":"45","address":"S. Forge\/Lincoln","spaces_total":"219","meters_total":"0","accessibility_total":"8","description":null,"lights":"Y","surface_type":"Paved","active":"Y","lng":"-81.51293277742451","lat":"41.08032495964411","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 18:12:51","html":""},{"id":"46","name":"Gallucci Hall Parking","lot_number":"46","address":"200 East Exchange","spaces_total":"259","meters_total":"20","accessibility_total":"8","description":null,"lights":"Y","surface_type":"Paved","active":"Y","lng":"-81.51746571060318","lat":"41.07234871429916","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 18:13:07","html":""},{"id":"47","name":"Folk Hall Parking","lot_number":"47","address":"150 East Exchange","spaces_total":"257","meters_total":"10","accessibility_total":"6","description":null,"lights":"Y","surface_type":"Paved","active":"Y","lng":"-81.51790022853476","lat":"41.07390212674866","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 18:13:26","html":""},{"id":"49","name":"West Campus (Polsky) Deck","lot_number":"49","address":"275 South High St.","spaces_total":"1493","meters_total":"12","accessibility_total":"30","description":null,"lights":"Y","surface_type":"Deck(Clearance: 8\\'5","active":"Y","lng":"-81.5192145109","lat":"41.0774182326","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2013-10-15 13:38:28","html":""},{"id":"50","name":"Hower House Parking","lot_number":"50","address":"60 Fir Hill","spaces_total":"19","meters_total":"0","accessibility_total":"0","description":null,"lights":"N","surface_type":"Paved","active":"Y","lng":"-81.5082120895608","lat":"41.07972656802931","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 18:14:34","html":""},{"id":"54","name":"The Chapel Lot","lot_number":"54","address":"Hamilton St.","spaces_total":"146","meters_total":"0","accessibility_total":"0","description":null,"lights":"N","surface_type":"Paved","active":"Y","lng":"-81.5049290657","lat":"41.077224129","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"0000-00-00 00:00:00","html":""},{"id":"52","name":"Martin University Ctr. Parking","lot_number":"52","address":"105 Fir Hill","spaces_total":"197","meters_total":"0","accessibility_total":"7","description":null,"lights":"Y","surface_type":"Paved","active":"Y","lng":"-81.50624334815944","lat":"41.078895022624145","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 18:14:52","html":""},{"id":"56","name":"Buckingham Turnaround","lot_number":"56","address":"220 Wolf Ledges Pky","spaces_total":"10","meters_total":"9","accessibility_total":"2","description":null,"lights":"Y","surface_type":"Paved","active":"Y","lng":"-81.516494751","lat":"41.0771432524","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 18:15:29","html":""},{"id":"57","name":"Rhodes Arena Circle","lot_number":"57","address":"373 Carroll St.","spaces_total":"24","meters_total":"8","accessibility_total":"16","description":null,"lights":"Y","surface_type":"Paved","active":"Y","lng":"-81.50846153492978","lat":"41.075321945160916","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 18:16:03","html":""},{"id":"60","name":"Polymer Training Ctr. Parking","lot_number":"60","address":"225 E. Mill","spaces_total":"9","meters_total":"0","accessibility_total":"1","description":null,"lights":"N","surface_type":"Paved","active":"Y","lng":"-81.51105388998906","lat":"41.08081826738973","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 18:16:27","html":""},{"id":"61","name":"Broadway Parking","lot_number":"61","address":"277 South Broadway","spaces_total":"26","meters_total":"0","accessibility_total":"2","description":null,"lights":"Y","surface_type":"Paved(Clearance: 7'0","active":"Y","lng":"-81.51811748741488","lat":"41.077157405777605","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 18:17:50","html":""},{"id":"62","name":"CBA Parking","lot_number":"62","address":"289 South Broadway","spaces_total":"61","meters_total":"0","accessibility_total":"0","description":null,"lights":"Y","surface_type":"Gravel","active":"Y","lng":"-81.51831865313943","lat":"41.076914596685135","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 18:17:31","html":""},{"id":"66","name":"Polsky Lot","lot_number":"66","address":"278 South High St","spaces_total":"113","meters_total":"21","accessibility_total":"5","description":null,"lights":"Y","surface_type":"Paved","active":"Y","lng":"-81.52020156383367","lat":"41.07768512409234","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 18:18:24","html":""},{"id":"69","name":"Physical Plant Lot","lot_number":"69","address":"201 South Forge St","spaces_total":"46","meters_total":"0","accessibility_total":"0","description":null,"lights":"Y","surface_type":"Paved","active":"Y","lng":"-81.51493906971729","lat":"41.079350664890924","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 16:03:44","html":""},{"id":"70","name":"Quaker Square Parking","lot_number":"70","address":"135 S. Broadway","spaces_total":"506","meters_total":"0","accessibility_total":"16","description":null,"lights":"Y","surface_type":"Paved","active":"Y","lng":"-81.51411295422974","lat":"41.08140893411823","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 18:19:23","html":""},{"id":"71","name":"Administrative Services Deck","lot_number":"71","address":"36 S. College St.","spaces_total":"135","meters_total":"0","accessibility_total":"6","description":null,"lights":"Y","surface_type":"Deck(Clearance: 8'6\"","active":"Y","lng":"-81.51176333427946","lat":"41.081144926650744","streetview_lng":null,"streetview_lat":null,"streetview_heading":null,"streetview_pitch":null,"streetview_zoom":null,"created_at":"","updated_by":"","updated_at":"2015-02-11 18:19:46","html":""}];
+		var parkingRelations = [{"id":"97","building_id":"198","lot_number":"9"},{"id":"96","building_id":"189","lot_number":"9"},{"id":"95","building_id":"191","lot_number":"45"},{"id":"94","building_id":"102","lot_number":"21"},{"id":"93","building_id":"192","lot_number":"36"},{"id":"92","building_id":"100","lot_number":"1"},{"id":"91","building_id":"183","lot_number":"7"},{"id":"90","building_id":"181","lot_number":"4"},{"id":"89","building_id":"179","lot_number":"7"},{"id":"88","building_id":"177","lot_number":"7"},{"id":"87","building_id":"175","lot_number":"1"},{"id":"86","building_id":"173","lot_number":"1"},{"id":"85","building_id":"171","lot_number":"1"},{"id":"84","building_id":"169","lot_number":"13"},{"id":"83","building_id":"167","lot_number":"7"},{"id":"82","building_id":"165","lot_number":"7"},{"id":"81","building_id":"163","lot_number":"7"},{"id":"80","building_id":"161","lot_number":"7"},{"id":"79","building_id":"159","lot_number":"7"},{"id":"78","building_id":"157","lot_number":"7"},{"id":"77","building_id":"62","lot_number":"47"},{"id":"76","building_id":"92","lot_number":"11"},{"id":"75","building_id":"20","lot_number":"26"},{"id":"74","building_id":"45","lot_number":"45"},{"id":"73","building_id":"70","lot_number":"26"},{"id":"72","building_id":"89","lot_number":"46"},{"id":"71","building_id":"63","lot_number":"46"},{"id":"70","building_id":"66","lot_number":"59"},{"id":"69","building_id":"93","lot_number":"43"},{"id":"68","building_id":"6","lot_number":"28"},{"id":"67","building_id":"39","lot_number":"19"},{"id":"66","building_id":"24","lot_number":"1"},{"id":"65","building_id":"53","lot_number":"49"},{"id":"64","building_id":"64","lot_number":"44"},{"id":"63","building_id":"14","lot_number":"26"},{"id":"62","building_id":"56","lot_number":"43"},{"id":"61","building_id":"47","lot_number":"29"},{"id":"60","building_id":"23","lot_number":"26"},{"id":"59","building_id":"10","lot_number":"27"},{"id":"58","building_id":"54","lot_number":"61"},{"id":"57","building_id":"72","lot_number":"26"},{"id":"56","building_id":"97","lot_number":"26"},{"id":"55","building_id":"38","lot_number":"50"},{"id":"54","building_id":"35","lot_number":"39"},{"id":"53","building_id":"30","lot_number":"2"},{"id":"52","building_id":"4","lot_number":"39"},{"id":"51","building_id":"187","lot_number":"36"},{"id":"50","building_id":"26","lot_number":"1"},{"id":"49","building_id":"185","lot_number":"70"},{"id":"48","building_id":"25","lot_number":"1"},{"id":"47","building_id":"104","lot_number":"30"},{"id":"46","building_id":"49","lot_number":"45"},{"id":"45","building_id":"153","lot_number":"36"},{"id":"44","building_id":"42","lot_number":"52"},{"id":"43","building_id":"194","lot_number":"38"},{"id":"42","building_id":"1","lot_number":"28"},{"id":"41","building_id":"5","lot_number":"39"},{"id":"40","building_id":"155","lot_number":"7"},{"id":"39","building_id":"27","lot_number":"1"},{"id":"38","building_id":"32","lot_number":"8"},{"id":"37","building_id":"28","lot_number":"15"},{"id":"36","building_id":"76","lot_number":"26"},{"id":"35","building_id":"44","lot_number":"27"},{"id":"34","building_id":"52","lot_number":"49"},{"id":"33","building_id":"34","lot_number":"9"},{"id":"32","building_id":"69","lot_number":"45"},{"id":"31","building_id":"15","lot_number":"26"},{"id":"30","building_id":"12","lot_number":"26"},{"id":"29","building_id":"60","lot_number":"37"},{"id":"28","building_id":"59","lot_number":"38"},{"id":"27","building_id":"65","lot_number":"44"},{"id":"26","building_id":"17","lot_number":"26"},{"id":"25","building_id":"11","lot_number":"26"},{"id":"24","building_id":"13","lot_number":"26"},{"id":"23","building_id":"31","lot_number":"8"},{"id":"22","building_id":"73","lot_number":"39"},{"id":"21","building_id":"43","lot_number":"28"},{"id":"20","building_id":"105","lot_number":"23"},{"id":"19","building_id":"33","lot_number":"26"},{"id":"18","building_id":"36","lot_number":"9"},{"id":"17","building_id":"2","lot_number":"34"},{"id":"16","building_id":"7","lot_number":"39"},{"id":"15","building_id":"22","lot_number":"26"},{"id":"14","building_id":"18","lot_number":"26"},{"id":"13","building_id":"48","lot_number":"45"},{"id":"12","building_id":"37","lot_number":"32"},{"id":"11","building_id":"19","lot_number":"26"},{"id":"10","building_id":"8","lot_number":"39"},{"id":"9","building_id":"74","lot_number":"10"},{"id":"8","building_id":"41","lot_number":"3"},{"id":"7","building_id":"50","lot_number":"60"},{"id":"6","building_id":"46","lot_number":"29"},{"id":"5","building_id":"58","lot_number":"41"},{"id":"4","building_id":"57","lot_number":"43"},{"id":"3","building_id":"16","lot_number":"26"},{"id":"2","building_id":"51","lot_number":"71"},{"id":"1","building_id":"3","lot_number":"34"},{"id":"98","building_id":null,"lot_number":null},{"id":"102","building_id":"110","lot_number":"1"},{"id":"106","building_id":"110","lot_number":"1"},{"id":"110","building_id":"234","lot_number":"13"},{"id":"114","building_id":"238","lot_number":"1"},{"id":"118","building_id":"200","lot_number":"36"},{"id":"122","building_id":"522","lot_number":"47"},{"id":"126","building_id":"530","lot_number":"34"}];
+		var departments = [{"id":"117","name":"Academic Achievement Program","url":"\/aap\/","building_id":"19","order":"0"},{"id":"20","name":"Academic Advisement Center","url":"\/advising\/","building_id":"17","order":"1"},{"id":"21","name":"Accessibility, Office of ","url":"\/access\/","building_id":"17","order":"2"},{"id":"262","name":"Accounts Payable","url":"http:\/\/www.uakron.edu\/controller\/accounts-payable.dot","building_id":"51","order":null},{"id":"112","name":"Air Force ROTC","url":"\/afrotc\/","building_id":"59","order":null},{"id":"149","name":"Albrecht Dance Performance Studio","url":"\/\/","building_id":"10","order":"99"},{"id":"75","name":"Alumni Association","url":"\/alumni\/","building_id":"187","order":"99"},{"id":"94","name":"Archival Services","url":"\/libraries\/archives\/","building_id":"52","order":"99"},{"id":"111","name":"Army ROTC","url":"\/armyrotc\/","building_id":"59","order":"99"},{"id":"90","name":"Barnes and Noble Bookstore","url":"http:\/\/uakron.bkstore.com","building_id":"52","order":"99"},{"id":"202","name":"Bookstore","url":"http:\/\/uakron.bncollege.com\/webapp\/wcs\/stores\/servlet\/BNCBHomePage?storeId=19072&catalogId=10001&lan","building_id":"73","order":null},{"id":"198","name":"Buchtelite","url":"http:\/\/www.buchtelite.com\/","building_id":"73","order":"0"},{"id":"96","name":"Business Solutions","url":"\/ce\/","building_id":"52","order":"0"},{"id":"22","name":"Career Services","url":"\/career\/","building_id":"73","order":null},{"id":"74","name":"Center for Child Development","url":"\/education\/community-engagement\/ccd\/","building_id":"39","order":"99"},{"id":"73","name":"Center for Dance and Theater","url":"\/\/","building_id":"10","order":"99"},{"id":"36","name":"Center for Economic Education","url":"http:\/\/www.economiceducation.us\/","building_id":"20","order":"99"},{"id":"37","name":"Center for Environmental Studies","url":"\/envstudies\/","building_id":"20","order":"99"},{"id":"100","name":"Center for Family Business","url":"\/\/","building_id":"0","order":"99"},{"id":"101","name":"Center for Organizational Development","url":"\/colleges\/cba\/institutes\/orgdevelopment\/","building_id":"0","order":"99"},{"id":"107","name":"Center for Small Business","url":"\/\/","building_id":"0","order":"99"},{"id":"47","name":"Chief Information Officer, Office of","url":"\/it\/","building_id":"3","order":null},{"id":"126","name":"Classical Studies, Anthropology and Archaeology","url":"\/anthropology-classics\/","building_id":"28","order":"99"},{"id":"52","name":"Clinic for Individual and Family Counseling","url":"\/clinics\/ifc","building_id":"538","order":null},{"id":"88","name":"College of Applied Science and Technology (formerly Summit College)","url":"\/summitcollege\/about-us\/departments.dot","building_id":"52","order":null},{"id":"63","name":"College of Arts and Sciences Dean's Office","url":"\/bcas\/","building_id":"70","order":"99"},{"id":"99","name":"College of Business Administration","url":"\/cba\/cba-home\/index.dot","building_id":"53","order":"99"},{"id":"14","name":"College of Engineering","url":"\/engineering\/","building_id":"8","order":"99"},{"id":"266","name":"College of Health Professions Dean's Office","url":"http:\/\/www.uakron.edu\/health\/","building_id":"5","order":null},{"id":"9","name":"College of Polymer Science & Polymer Engineering","url":"http:\/\/www2.uakron.edu\/cpspe\/","building_id":"6","order":"99"},{"id":"153","name":"Computer Based Assessment ","url":"\/it\/instructional_services\/cbae\/","building_id":"60","order":"99"},{"id":"51","name":"Computer Based Education","url":"\/its\/learning\/cbae\/","building_id":"24","order":"99"},{"id":"246","name":"Conquer Chiari Research Center","url":"chiari-research.org","building_id":"514","order":null},{"id":"23","name":"Counseling Center","url":"\/counseling\/","building_id":"17","order":"4"},{"id":"119","name":"Crystal Room","url":"\/colleges\/summit\/crystal_room\/","building_id":"518","order":null},{"id":"143","name":"Daum Theater","url":"\/\/","building_id":"26","order":"99"},{"id":"71","name":"Department of Athletics","url":"http:\/\/www.gozips.com","building_id":"30","order":"99"},{"id":"31","name":"Department of Audio-Visual Services","url":"\/it\/instructional_services\/avs\/","building_id":"18","order":"99"},{"id":"15","name":"Department of Biology","url":"\/biology\/","building_id":"8","order":"99"},{"id":"13","name":"Department of Chemical Engineering","url":"\/engineering\/CBE\/","building_id":"7","order":"99"},{"id":"7","name":"Department of Chemistry","url":"\/chemistry\/","building_id":"4","order":"99"},{"id":"34","name":"Department of Computer Sciences","url":"\/computer-science\/","building_id":"70","order":"99"},{"id":"40","name":"Department of Curricular ","url":"\/education\/academic-programs\/CIS\/","building_id":"22","order":"99"},{"id":"54","name":"Department of Developmental Programs","url":"\/colleges\/summit\/dev_programs\/","building_id":"52","order":"99"},{"id":"65","name":"Department of Economics","url":"\/economics\/","building_id":"70","order":"99"},{"id":"41","name":"Department of Educational Foundations and Leadership","url":"\/education\/academic-programs\/EFL\/","building_id":"22","order":"99"},{"id":"66","name":"Department of English","url":"\/english\/","building_id":"28","order":"99"},{"id":"80","name":"Department of Environmental and Occupational Safety","url":"\/safety\/eohs\/","building_id":"104","order":"99"},{"id":"81","name":"Department of Facilities, Planning and Construction and the University Architect","url":"\/capplan\/","building_id":"49","order":"99"},{"id":"102","name":"Department of Finance","url":"\/cba\/cba-home\/dept-cent-inst\/finance\/","building_id":"53","order":"99"},{"id":"38","name":"Department of Geosciences","url":"\/geology\/","building_id":"20","order":null},{"id":"68","name":"Department of History","url":"\/history\/","building_id":"70","order":"99"},{"id":"105","name":"Department of Management","url":"\/cba\/cba-home\/dept-cent-inst\/management\/","building_id":"53","order":"99"},{"id":"106","name":"Department of Marketing","url":"\/cba\/cba-home\/dept-cent-inst\/marketing\/","building_id":"53","order":"99"},{"id":"122","name":"Department of Mathematics","url":"\/math\/","building_id":"70","order":"99"},{"id":"67","name":"Department of Modern Languages","url":"\/modlang\/","building_id":"28","order":"99"},{"id":"69","name":"Department of Philosophy","url":"\/philosophy\/","building_id":"28","order":"99"},{"id":"77","name":"Department of Physical Facilities","url":"\/pfoc\/","building_id":"44","order":"99"},{"id":"35","name":"Department of Physics","url":"\/physics\/","building_id":"19","order":"99"},{"id":"70","name":"Department of Political Science","url":"\/polisci\/","building_id":"28","order":"99"},{"id":"10","name":"Department of Polymer Science","url":"\/cpspe\/dps\/","building_id":"6","order":"99"},{"id":"124","name":"Department of Psychology","url":"\/psychology\/","building_id":"70","order":"99"},{"id":"95","name":"Department of Public Administration and Urban Studies","url":"\/paus\/","building_id":"28","order":"99"},{"id":"84","name":"Department of Purchasing","url":"\/purchasing\/","building_id":"49","order":"99"},{"id":"125","name":"Department of Sociology","url":"\/sociology\/","building_id":"28","order":"99"},{"id":"60","name":"Department of Statistics","url":"\/statistics\/","building_id":"70","order":"99"},{"id":"82","name":"Department of Telecommunications","url":"\/telecomm\/","building_id":"3","order":null},{"id":"76","name":"Department of University Development and the University of Akron Foundation","url":"\/development\/","building_id":"187","order":"99"},{"id":"32","name":"Design and Development Services","url":"\/it\/instructional_services\/dds\/","building_id":"25","order":"99"},{"id":"222","name":"E.J. Thomas Performing Arts Hall","url":"http:\/\/uaevents.com\/site\/page.php?id=132","building_id":"43","order":null},{"id":"42","name":"Educational Field Experience","url":"\/\/","building_id":"22","order":"99"},{"id":"116","name":"Emily Davis Art Gallery","url":"\/art\/galleries\/emily-davis-gallery.dot","building_id":"62","order":"99"},{"id":"114","name":"Engineering and Science Technology Department","url":"\/colleges\/summit\/engineering_science\/","building_id":"59","order":"99"},{"id":"59","name":"English Language Institute","url":"\/eli\/","building_id":"28","order":"99"},{"id":"103","name":"Fitzgerald Institute for Entrepeneurial Studies","url":"\/cba\/institutes\/fitzgerald\/","building_id":"0","order":"99"},{"id":"91","name":"Graduate School","url":"\/gradsch\/","building_id":"52","order":"99"},{"id":"18","name":"Guzzetta Performing Arts Box Office","url":"\/\/","building_id":"10","order":"99"},{"id":"145","name":"Guzzetta Recital Hall","url":"\/\/","building_id":"10","order":"99"},{"id":"128","name":"Health Services","url":"\/healthservices\/","building_id":"31","order":"99"},{"id":"6","name":"Help Window","url":"http:\/\/support.uakron.edu","building_id":"3","order":"99"},{"id":"118","name":"Honors College","url":"\/honors\/","building_id":"72","order":null},{"id":"108","name":"Human Resources, Office of Talent Development and","url":"\/hr\/","building_id":"51","order":null},{"id":"178","name":"Inclusion and Equity","url":"\/ie\/","building_id":"23","order":"99"},{"id":"104","name":"Institute for Global Business","url":"\/colleges\/cba\/institutes\/globalbusiness\/","building_id":"0","order":"99"},{"id":"79","name":"Institute of Polymer Engineering","url":"\/cpspe\/","building_id":"46","order":"99"},{"id":"1","name":"Intellectual Property and Technology Center","url":"\/law\/ip\/","building_id":"1","order":"99"},{"id":"98","name":"International Agreements","url":"\/\/","building_id":"52","order":"99"},{"id":"267","name":"International Center of Advanced Elastomers for Healthcare","url":"http:\/\/www.biomerg.com\/","building_id":"514","order":null},{"id":"250","name":"Law Library","url":"\/law\/library\/","building_id":"1","order":null},{"id":"39","name":"LeBron James Family Foundation College of Education","url":"\/education\/","building_id":"534","order":null},{"id":"4","name":"Legal Clinic Office","url":"\/law\/clinical\/","building_id":"2","order":"99"},{"id":"157","name":"Military Services Center","url":"\/veterans\/","building_id":"17","order":"6"},{"id":"171","name":"Multicultural Development, Office of","url":"\/omd\/","building_id":"17","order":"99"},{"id":"115","name":"Myers School of Fine and Applied Arts, The Mary Schiller","url":"\/art\/","building_id":"62","order":null},{"id":"26","name":"New Student Orientation","url":"\/nso\/","building_id":"17","order":"7"},{"id":"206","name":"Off-Campus Student Services","url":"\/offcampus\/","building_id":"73","order":null},{"id":"50","name":"Office of Distance Learning","url":"\/it\/instructional_services\/dl\/","building_id":"25","order":"99"},{"id":"92","name":"Office of Institutional Research","url":"\/ir\/","building_id":"25","order":"99"},{"id":"97","name":"Office of International Programs","url":"\/oip\/","building_id":"52","order":null},{"id":"242","name":"Office of Research Administration","url":"http:\/\/www.uakron.edu\/research\/ora\/","building_id":"52","order":null},{"id":"49","name":"Office of the Board of Trustees","url":"\/bot\/","building_id":"73","order":"99"},{"id":"87","name":"Office of the Controller","url":"\/controller\/","building_id":"51","order":"99"},{"id":"43","name":"Office of The President","url":"\/president\/","building_id":"23","order":"1"},{"id":"44","name":"Office of the Senior Vice President and Provost","url":"\/provost\/","building_id":"23","order":"2"},{"id":"85","name":"Office of the University Auditor","url":"\/administration\/VpBusnFnce.php","building_id":"51","order":"99"},{"id":"48","name":"Office of the Vice President for Finance and Administration\/Chief Financial Officer","url":"\/finance-administration\/","building_id":"23","order":"99"},{"id":"45","name":"Office of the Vice President of Advancement","url":"\/alumni-friends\/vp.dot","building_id":"23","order":null},{"id":"46","name":"Office of Vice President and General Counsel","url":"\/ogc\/","building_id":"23","order":"99"},{"id":"12","name":"Office of VP for Research ","url":"\/research\/","building_id":"6","order":null},{"id":"121","name":"Parking and Transportation Services","url":"\/parking\/","building_id":"76","order":null},{"id":"258","name":"Payroll Office","url":"http:\/\/www.uakron.edu\/controller\/payroll.dot","building_id":"51","order":null},{"id":"83","name":"PC Services and Repairs","url":"\/its\/hoss\/tlss\/","building_id":"3","order":"99"},{"id":"210","name":"PNC Bank","url":"\/studentunion\/bank.dot","building_id":"73","order":null},{"id":"131","name":"Quaker Square Residence Hall","url":"\/reslife\/halls\/quaker-square.dot","building_id":"185","order":"99"},{"id":"64","name":"Ray C. Bliss Institute of Applied Politics","url":"\/bliss\/","building_id":"28","order":"99"},{"id":"28","name":"Registrar, Office of the University ","url":"\/registrar\/","building_id":"17","order":"8"},{"id":"147","name":"Sandefur Theatre","url":"\/\/","building_id":"10","order":"99"},{"id":"155","name":"School of Accountancy","url":"\/cba\/cba-home\/dept-cent-inst\/accountancy\/","building_id":"53","order":"99"},{"id":"254","name":"School of Allied Health","url":"http:\/\/www.uakron.edu\/allied-health","building_id":"52","order":null},{"id":"61","name":"School of Communication","url":"\/schlcomm\/","building_id":"26","order":"99"},{"id":"53","name":"School of Counseling","url":"\/soc\/","building_id":"538","order":null},{"id":"17","name":"School of Dance, Theatre, and Arts Administration","url":"\/dtaa\/","building_id":"10","order":"99"},{"id":"113","name":"School of Family and Consumer Sciences","url":"\/fcs\/","building_id":"59","order":"99"},{"id":"19","name":"School of Music","url":"\/music\/","building_id":"10","order":"99"},{"id":"8","name":"School of Nursing","url":"\/nursing\/","building_id":"5","order":null},{"id":"238","name":"School of Social Work","url":"\/socialwork\/","building_id":"52","order":null},{"id":"89","name":"School of Speech - Language Pathology and Audiology","url":"\/sslpa\/","building_id":"52","order":"99"},{"id":"230","name":"Sport\u00a0Science and Wellness Education","url":"\/sswe\/","building_id":"187","order":null},{"id":"25","name":"Student Accounts\/Bursar\/Billing\/Cashier","url":"\/student-accounts\/","building_id":"17","order":null},{"id":"182","name":"Student Conduct and Community Standards","url":"\/sja\/","building_id":"17","order":"0"},{"id":"186","name":"Student Employment","url":"\/career\/student-employment\/","building_id":"17","order":"99"},{"id":"24","name":"Student Financial Aid, Office of","url":"\/finaid\/","building_id":"17","order":"10"},{"id":"190","name":"Student Life","url":"\/studentlife\/","building_id":"73","order":"99"},{"id":"214","name":"Student Organization Resource Center (SOuRCe)","url":"http:\/\/www.uakron.edu\/studentlife\/source\/","building_id":"73","order":null},{"id":"159","name":"Student Services Center","url":"\/ssc\/","building_id":"17","order":"11"},{"id":"234","name":"Suarez Applied Marketing Research Laboratories, The","url":"\/cba\/cba-home\/dept-cent-inst\/suarez.dot","building_id":"52","order":null},{"id":"93","name":"Taylor\u00a0Institute for Direct Marketing, The","url":"\/cba\/centers-and-institutes\/taylor\/index.dot","building_id":"52","order":null},{"id":"120","name":"The Break Point","url":"\/\/","building_id":"63","order":"99"},{"id":"58","name":"The Center for Conflict Management","url":"\/centers\/conflict\/","building_id":"25","order":"99"},{"id":"167","name":"The Cummings Center for the History of Psychology","url":"\/chp\/","building_id":"102","order":null},{"id":"3","name":"The Miller Institute for Professional Responsibility","url":"\/law\/","building_id":"1","order":"99"},{"id":"2","name":"The School of Law","url":"\/law\/","building_id":"1","order":"99"},{"id":"16","name":"The Science and Technology Library","url":"\/libraries","building_id":"8","order":null},{"id":"226","name":"The Stage Door","url":"http:\/\/uaevents.com\/site\/page.php?id=146","building_id":"43","order":null},{"id":"135","name":"The Tommy Evans Lounge","url":"\/\/","building_id":"30","order":"99"},{"id":"218","name":"Theatre, The Gardner","url":"\/studentunion\/buildingdirectory\/theatre.dot","building_id":"73","order":null},{"id":"161","name":"Transfer Student Services Center","url":"\/transferstudents\/","building_id":"17","order":"12"},{"id":"56","name":"UA Adult Focus","url":"\/uaaf\/","building_id":"60","order":"99"},{"id":"33","name":"UA Press","url":"\/uapress\/","building_id":"185","order":null},{"id":"27","name":"Undergraduate Admissions, Office of","url":"\/admissions\/","building_id":"17","order":"13"},{"id":"109","name":"University Communications and Marketing","url":"\/im\/","building_id":"51","order":null},{"id":"165","name":"University Libraries","url":"\/libraries\/","building_id":"18","order":"99"},{"id":"78","name":"University of Akron Police Department","url":"\/safety\/police\/","building_id":"44","order":"99"},{"id":"5","name":"Web Team","url":"\/webteam\/","building_id":"49","order":null},{"id":"62","name":"WZIP-FM [Z88.1] campus radio station","url":"http:\/\/www.wzip.fm","building_id":"26","order":null},{"id":"30","name":"Zip Card Office (satellite)","url":"\/zipcard\/","building_id":"17","order":"14"},{"id":"133","name":"Zips Team Shop","url":"\/\/","building_id":"30","order":"99"}];
+		var categories = [{"id":"2","name":"Academic","public":"Y"},{"id":"1","name":"Administrative","public":"Y"},{"id":"3","name":"Athletic","public":"Y"},{"id":"10","name":"Computer Labs","public":"N"},{"id":"0","name":"defaultDisplay","public":"N"},{"id":"8","name":"Dining","public":"Y"},{"id":"4","name":"Entertainment","public":"Y"},{"id":"5","name":"Greek Life","public":"Y"},{"id":"11","name":"Libraries","public":"Y"},{"id":"7","name":"parkingLots","public":"N"},{"id":"6","name":"Residential","public":"Y"},{"id":"9","name":"ZipCard Accepted","public":"Y"}];
+		var buildingCategories = [{"id":"2","building_id":"49","category_id":"1"},{"id":"6","building_id":"51","category_id":"1"},{"id":"10","building_id":"23","category_id":"1"},{"id":"14","building_id":"56","category_id":"1"},{"id":"18","building_id":"3","category_id":"1"},{"id":"22","building_id":"58","category_id":"1"},{"id":"26","building_id":"45","category_id":"1"},{"id":"30","building_id":"47","category_id":"1"},{"id":"38","building_id":"76","category_id":"1"},{"id":"42","building_id":"44","category_id":"1"},{"id":"46","building_id":"52","category_id":"1"},{"id":"50","building_id":"17","category_id":"1"},{"id":"58","building_id":"73","category_id":"1"},{"id":"62","building_id":"104","category_id":"1"},{"id":"66","building_id":"105","category_id":"1"},{"id":"70","building_id":"50","category_id":"2"},{"id":"74","building_id":"8","category_id":"2"},{"id":"78","building_id":"19","category_id":"2"},{"id":"82","building_id":"18","category_id":"2"},{"id":"86","building_id":"56","category_id":"2"},{"id":"90","building_id":"53","category_id":"2"},{"id":"94","building_id":"39","category_id":"2"},{"id":"98","building_id":"70","category_id":"2"},{"id":"102","building_id":"20","category_id":"2"},{"id":"106","building_id":"62","category_id":"2"},{"id":"110","building_id":"93","category_id":"2"},{"id":"114","building_id":"6","category_id":"2"},{"id":"118","building_id":"10","category_id":"2"},{"id":"122","building_id":"72","category_id":"2"},{"id":"126","building_id":"30","category_id":"2"},{"id":"130","building_id":"4","category_id":"2"},{"id":"134","building_id":"26","category_id":"2"},{"id":"138","building_id":"25","category_id":"2"},{"id":"142","building_id":"5","category_id":"2"},{"id":"146","building_id":"5","category_id":"2"},{"id":"150","building_id":"1","category_id":"2"},{"id":"154","building_id":"191","category_id":"2"},{"id":"158","building_id":"28","category_id":"2"},{"id":"162","building_id":"46","category_id":"2"},{"id":"166","building_id":"52","category_id":"2"},{"id":"170","building_id":"69","category_id":"2"},{"id":"174","building_id":"60","category_id":"2"},{"id":"178","building_id":"59","category_id":"2"},{"id":"182","building_id":"102","category_id":"2"},{"id":"186","building_id":"2","category_id":"2"},{"id":"190","building_id":"7","category_id":"2"},{"id":"194","building_id":"22","category_id":"2"},{"id":"198","building_id":"198","category_id":"3"},{"id":"202","building_id":"83","category_id":"3"},{"id":"206","building_id":"192","category_id":"3"},{"id":"210","building_id":"187","category_id":"3"},{"id":"214","building_id":"30","category_id":"3"},{"id":"218","building_id":"74","category_id":"3"},{"id":"222","building_id":"32","category_id":"3"},{"id":"226","building_id":"31","category_id":"3"},{"id":"230","building_id":"194","category_id":"4"},{"id":"234","building_id":"62","category_id":"4"},{"id":"238","building_id":"10","category_id":"4"},{"id":"242","building_id":"38","category_id":"4"},{"id":"246","building_id":"26","category_id":"4"},{"id":"250","building_id":"73","category_id":"4"},{"id":"254","building_id":"43","category_id":"4"},{"id":"350","building_id":"165","category_id":"5"},{"id":"346","building_id":"179","category_id":"5"},{"id":"342","building_id":"181","category_id":"5"},{"id":"338","building_id":"163","category_id":"5"},{"id":"334","building_id":"169","category_id":"5"},{"id":"330","building_id":"183","category_id":"5"},{"id":"326","building_id":"175","category_id":"5"},{"id":"322","building_id":"159","category_id":"5"},{"id":"318","building_id":"171","category_id":"5"},{"id":"314","building_id":"161","category_id":"5"},{"id":"310","building_id":"155","category_id":"5"},{"id":"306","building_id":"167","category_id":"5"},{"id":"354","building_id":"157","category_id":"5"},{"id":"358","building_id":"177","category_id":"5"},{"id":"362","building_id":"14","category_id":"6"},{"id":"366","building_id":"153","category_id":"6"},{"id":"382","building_id":"97","category_id":"6"},{"id":"386","building_id":"16","category_id":"6"},{"id":"390","building_id":"185","category_id":"6"},{"id":"394","building_id":"15","category_id":"6"},{"id":"398","building_id":"12","category_id":"6"},{"id":"402","building_id":"11","category_id":"6"},{"id":"406","building_id":"13","category_id":"6"},{"id":"410","building_id":"189","category_id":"6"},{"id":"546","building_id":"6","category_id":"0"},{"id":"578","building_id":"5","category_id":"7"},{"id":"422","building_id":"17","category_id":"0"},{"id":"426","building_id":"187","category_id":"0"},{"id":"430","building_id":"30","category_id":"0"},{"id":"530","building_id":"23","category_id":"0"},{"id":"590","building_id":"12","category_id":"8"},{"id":"586","building_id":"17","category_id":"7"},{"id":"534","building_id":"73","category_id":"0"},{"id":"582","building_id":"7","category_id":"7"},{"id":"594","building_id":"185","category_id":"8"},{"id":"598","building_id":"73","category_id":"8"},{"id":"602","building_id":"73","category_id":"9"},{"id":"606","building_id":"185","category_id":"9"},{"id":"610","building_id":"12","category_id":"9"},{"id":"614","building_id":"17","category_id":"9"},{"id":"618","building_id":"242","category_id":"9"},{"id":"622","building_id":"246","category_id":"9"},{"id":"626","building_id":"250","category_id":"9"},{"id":"630","building_id":"254","category_id":"9"},{"id":"634","building_id":"258","category_id":"9"},{"id":"638","building_id":"262","category_id":"9"},{"id":"642","building_id":"266","category_id":"9"},{"id":"646","building_id":"270","category_id":"9"},{"id":"650","building_id":"274","category_id":"9"},{"id":"658","building_id":"282","category_id":"9"},{"id":"662","building_id":"286","category_id":"9"},{"id":"666","building_id":"290","category_id":"9"},{"id":"670","building_id":"294","category_id":"9"},{"id":"726","building_id":"38","category_id":"9"},{"id":"682","building_id":"306","category_id":"9"},{"id":"686","building_id":"302","category_id":"9"},{"id":"690","building_id":"310","category_id":"9"},{"id":"694","building_id":"314","category_id":"9"},{"id":"698","building_id":"318","category_id":"9"},{"id":"702","building_id":"322","category_id":"9"},{"id":"710","building_id":"330","category_id":"9"},{"id":"714","building_id":"390","category_id":"9"},{"id":"722","building_id":"338","category_id":"9"},{"id":"730","building_id":"350","category_id":"9"},{"id":"734","building_id":"354","category_id":"9"},{"id":"742","building_id":"362","category_id":"9"},{"id":"746","building_id":"366","category_id":"9"},{"id":"754","building_id":"374","category_id":"9"},{"id":"762","building_id":"32","category_id":"9"},{"id":"766","building_id":"386","category_id":"9"},{"id":"770","building_id":"394","category_id":"9"},{"id":"774","building_id":"398","category_id":"9"},{"id":"778","building_id":"52","category_id":"9"},{"id":"782","building_id":"402","category_id":"9"},{"id":"790","building_id":"31","category_id":"9"},{"id":"794","building_id":"30","category_id":"9"},{"id":"798","building_id":"72","category_id":"9"},{"id":"802","building_id":"414","category_id":"9"},{"id":"810","building_id":"422","category_id":"9"},{"id":"814","building_id":"187","category_id":"9"},{"id":"818","building_id":"426","category_id":"9"},{"id":"822","building_id":"430","category_id":"9"},{"id":"826","building_id":"434","category_id":"9"},{"id":"830","building_id":"438","category_id":"9"},{"id":"834","building_id":"442","category_id":"9"},{"id":"838","building_id":"446","category_id":"9"},{"id":"842","building_id":"450","category_id":"9"},{"id":"846","building_id":"454","category_id":"9"},{"id":"850","building_id":"470","category_id":"9"},{"id":"974","building_id":"554","category_id":"9"},{"id":"970","building_id":"558","category_id":"9"},{"id":"862","building_id":"466","category_id":"9"},{"id":"866","building_id":"18","category_id":"9"},{"id":"870","building_id":"474","category_id":"9"},{"id":"874","building_id":"474","category_id":"8"},{"id":"878","building_id":"478","category_id":"8"},{"id":"882","building_id":"482","category_id":"8"},{"id":"886","building_id":"486","category_id":"8"},{"id":"966","building_id":"550","category_id":"9"},{"id":"894","building_id":"490","category_id":"8"},{"id":"962","building_id":"546","category_id":"9"},{"id":"902","building_id":"502","category_id":"8"},{"id":"906","building_id":"506","category_id":"8"},{"id":"910","building_id":"510","category_id":"8"},{"id":"914","building_id":"522","category_id":"2"},{"id":"918","building_id":"53","category_id":"10"},{"id":"922","building_id":"200","category_id":"6"},{"id":"934","building_id":"530","category_id":"8"},{"id":"938","building_id":"534","category_id":"2"},{"id":"942","building_id":"18","category_id":"11"},{"id":"946","building_id":"8","category_id":"11"},{"id":"950","building_id":"1","category_id":"11"},{"id":"954","building_id":"102","category_id":"11"},{"id":"958","building_id":"52","category_id":"11"},{"id":"975","building_id":"559","category_id":"9"},{"id":"979","building_id":"563","category_id":"9"}];
+
+
+		//Reassign these so their ids are their indices
+		buildings = reassign(buildings, 'id');
+		parkingLots = reassign(parkingLots, 'id');
+		parkingRelations = reassign(parkingRelations, 'id');
+		departments = reassign(departments, 'id');
+		categories = reassign(categories, 'id');
+		buildingCategories = reassign(buildingCategories, 'id');
+
+		window.buildingsArr = [];
+		$.each(buildings,function(i,building){
+			buildingsArr[building.id] = building;
+		})
+
+
+		function reassign(array,primaryKey){
+
+			tempArr = {};
+			$.each(array, function(i,obj){
+				tempArr[obj[primaryKey]] = obj;
+			});
+
+			return tempArr;
+		}
+
+		//Icons for google maps stuff
+		var icons = {
+			red : "https://maps.google.com/intl/en_us/mapfiles/ms/micons/red.png",
+			purple : "https://maps.google.com/intl/en_us/mapfiles/ms/micons/purple.png",
+			yellow : "https://maps.google.com/intl/en_us/mapfiles/ms/micons/yellow.png",
+			blue : "https://maps.google.com/intl/en_us/mapfiles/ms/micons/blue.png",
+			green : "https://maps.google.com/intl/en_us/mapfiles/ms/micons/green.png",
+			orange : "https://maps.google.com/intl/en_us/mapfiles/ms/micons/orange.png",
+			parking : "https://maps.uakron.edu/img/park.png",
+			visitorParking : "https://maps.uakron.edu/img/visit_park.png"
+		};
+
+		//Whatever is listed in the Search Box
+		window.searchList = [];
+
+    </script>
+
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button id="collapseButton" onclick="resize()" title="Click for Location Search" type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <ul class="nav navbar-nav navbar-toggle" style="margin-top:1em;margin-right:1em;padding:0px!important;" data-toggle="collapse">
+                    <li class="dropdown">
+                        <button type="button" href="#" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" style="font-weight:bold;">Categories&nbsp<b style="border-top-color:white;border-bottom-color:white;" class="caret"></b></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" onclick="showCategory(2)">Academic</a></li>
+                            <li><a href="#" onclick="showCategory(1)">Administrative</a></li>
+                            <li><a href="#" onclick="showCategory(3)">Athletic</a></li>
+                            <li><a href="#" onclick="showCategory(8)">Dining</a></li>
+                            <li><a href="#" onclick="showCategory(4)">Entertainment</a></li>
+                            <li><a href="#" onclick="showCategory(5)">Greek Life</a></li>
+                            <li><a href="#" onclick="showCategory(11)">Libraries</a></li>
+                            <li><a href="#" onclick="showCategory(6)">Residential</a></li>
+                            <li><a href="#" onclick="showCategory(9)">ZipCard Accepted</a></li>
+                            <li><a href="#" onclick="showCategory(7)">Parking Lots</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-toggle" style="margin-top:1em;margin-right:1em;padding:0px!important;" data-toggle="collapse">
+                    <li><button type="button" class="btn btn-primary btn-xs" style="font-weight:bold;" onclick="showCategory(-1)">All Locations</button></li>
+                </ul>
+
+                <a class="navbar-brand" href="http://www.uakron.edu"><img src="https://maps.uakron.edu/img/stackedUA_small.png" alt="UA Home"></a>
+            </div>
+
+            <div id="collapseBar" class="collapse navbar-collapse">
+                <ul id="navBarLeft" class="nav navbar-nav navbar-left col-sm-5 col-md-6">
+                    <li><a href="#" style="font-weight:bold;" onclick="showCategory(-1)">All Locations</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="font-weight:bold;">Categories&nbsp<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" onclick="showCategory(2)">Academic</a></li>
+                            <li><a href="#" onclick="showCategory(1)">Administrative</a></li>
+                            <li><a href="#" onclick="showCategory(3)">Athletic</a></li>
+                            <li><a href="#" onclick="showCategory(8)">Dining</a></li>
+                            <li><a href="#" onclick="showCategory(4)">Entertainment</a></li>
+                            <li><a href="#" onclick="showCategory(5)">Greek Life</a></li>
+                            <li><a href="#" onclick="showCategory(11)">Libraries</a></li>
+                            <li><a href="#" onclick="showCategory(7)">Parking Lots</a></li>
+                            <li><a href="#" onclick="showCategory(6)">Residential</a></li>
+                            <li><a href="#" onclick="showCategory(9)">ZipCard Accepted</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="navbar-form ">
+                    <div class="input-group col-sm-6 col-md-5">
+                        <span id="locationButton" class="btn btn-default input-group-addon dropdown-toggle" data-toggle="dropdown">
+                            Locations&nbsp<span class="caret"></span>
+                        </span>
+                        <input id="dropDownSearch" type="text" class="form-control" placeholder="Search for locations">
+                        <ul id="dropDownList" class="dropdown-menu" role="menu" style="overflow:scroll;"></ul>
+                        <a class="btn btn-default input-group-addon" onclick="openMarker($('.dropDownOptions')[0])">
+                            Go!
+                        </a>
+                        <a class="btn btn-default input-group-addon" onclick="window.location = 'http://www.uakron.edu/resources/docs/UCM-1014-32613.pdf'">
+                            <span class="glyphicon glyphicon-print"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div id="mapHolder" class="row" style="height:300px;margin-left:0px!important;margin-right:0px!important;padding:0px!important;">
+        <div id="directionsPanel" style="overflow:auto;display:none;">
+            <div id="directionsPanelHead">
+                <button style="width:100%;" type="button" class="btn btn-warning btn-xs pull-right" onclick="closeDirections()">Close</button><br />
+                <div class="btn-group" style="text-align:center;width:100%;">
+                    <button type="button" onclick="directionType('DRIVING')" id="directionsDRIVING" class="btn btn-xs btn-primary disabled directionButtons col-xs-4">Driving</button>
+                    <button type="button" onclick="directionType('WALKING')" id="directionsWALKING" class="btn btn-xs btn-primary directionButtons col-xs-4">Walking</button>
+                    <button type="button" onclick="directionType('BICYCLING')" id="directionsBICYCLING" class="btn btn-xs btn-primary directionButtons col-xs-4">Biking</button>
+                </div>
+            </div>
+            <div id="directionsPanelBody">
+            </div>
+            <br />
+            <div id="directionsPanelFooter" class="well">
+                <h4>Not where you wanted to start/end?</h4>
+                Drag the [A] and [B] markers around to fine-tune your directions.
+            </div>
+        </div>
+        <div class="col-sm-12" id="map-canvas" style="height:100%;">
+            stuff
+        </div>
+        <div id="infoPanel" style="overflow:auto;display:none;">
+            <div id="infoPanelHead">
+                <button style="width:100%;" type="button" class="btn btn-warning btn-xs pull-right" onclick="closeInfoDiv()">Close</button><br /><br />
+            </div>
+            <div id="infoPanelBody">
+            </div>
+            <div id="infoPanelFooter" class="well">
+                <h4>Does this information look correct?</h4>
+                Send any corrections or suggestions to <a href="mailto:webmaster@uakron.edu?subject=Building Update" title="webmaster@uakron.edu">webmaster@uakron.edu</a>
+            </div>
+        </div>
+    </div>
+    <div id="footer" class="container">
+        <nav class="navbar navbar-default navbar-fixed-bottom">
+            <div class="navbar-inner navbar-content-center" style="opacity:1.0!important;">
+                <a href="http://www.uakron.edu">The University of Akron</a>  -  Akron, OH 44325 &nbsp
+            </div>
+        </nav>
+    </div>
+    <div class="modal fade" id="emailModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Email this link to someone</h4>
+                </div>
+                <div class="modal-body" id="emailModalBody">
+                    <div class="input-group">
+                        <span class="input-group-addon">To:</span>
+                        <input type="text" id="emailTo" class="form-control" placeholder="name@domain.edu" />
+                    </div><br />
+                    <div class="input-group">
+                        <span class="input-group-addon">From:</span>
+                        <input type="text" id="emailFrom" class="form-control" value="noreply@uakron.edu" />
+                    </div><br />
+                    <div class="input-group">
+                        <span class="input-group-addon">Link to Building:</span>
+                        <input type="text" id="emailLink" class="form-control" />
+                    </div>
+                    <br />
+                    Message:
+                    <textarea id="emailMessage" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" onclick="sendEmail()" class="btn btn-primary">Send Email</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</body>
+<script>
+
+function init(){
+	//Initialization of major things
+	initMap();
+
+	initMarkers();
+
+	initInfoBoxes();
+
+	initGeolocation();
+
+	showCategory(0,false);
+	//Despite only showing the default assortment of markers, populate the search list with a full list of locations
+	window.searchList = [];
+	$.each(buildings, function(i, building){
+		window.searchList.push(building);
+	});
+	$.each(parkingLots, function(i, lot){
+		window.searchList.push(lot);
+	});
+	$.each(window.departments, function(i, dept){
+		window.searchList.push(dept);
+	});
+	filterSearch('');
+
+	var passedID = "";
+	var passedPID = "";
+
+	if(passedPID.length > 0){
+		passedID = "lot"+passedPID;
+	}
+
+	//Handle deep linking
+	if(passedID.length > 0){
+		if(passedID.indexOf('lot') == -1){
+			//It's a Building
+			window.buildingMarkers[passedID].setMap(window.map);
+			openBuildingInfo(buildings[passedID]);
+		}else{
+			//It's a Parking Lot
+			id = passedID.replace('lot','');
+			window.parkingMarkers[id].setMap(window.map);
+			openParkingInfo(parkingLots[id]);
+
+			//Register keyhandler
+			$(".directionsInput").keyup(function(e){
+				if(e.keyCode == 13){
+					getDirections($(".directionsInput").attr('id').replace('dirAddressLot',''));
+				}
+			});
+		}
+	}
+
+	//Keep footer pretty
+	setTimeout(function(){
+		$("span:contains(\"Map data\")").parent().css('background-color','rgb(0,45,98)');
+		$("span:contains(\"Map data\")").parent().css('opacity','0.7');
+		$("span:contains(\"Map data\")").css('color','white');
+		$("a:contains(\"Terms of Use\")").parent().css('background-color','rgb(0,45,98)');
+		$("a:contains(\"Terms of Use\")").parent().css('opacity','0.7');
+		$("a:contains(\"Terms of Use\")").css('color','white');
+	},800);
+
+}
+
+$(document).ready(function(){
+	window.height = $(window).height();
+	window.width = $(window).width();
+	window.mapHeight = window.height - $('.navbar-fixed-top').height() - 1;
+	window.navSearchWidth = ((window.width-$('#navBarLeft').position().left)) -($('#navBarLeft').width() + $('#navBarLeft').position().left)+20;
+});
+
+$(window).resize(function(){
+	window.height = $(window).height();
+	window.width = $(window).width();
+	window.mapHeight = window.height - $('.navbar-fixed-top').height() - 1;
+	window.navSearchWidth = ((window.width-$('#navBarLeft').position().left)) -($('#navBarLeft').width() + $('#navBarLeft').position().left)+20;
+	resize();
+});
+
+function resize(){
+	$('#mapHolder').css('height',window.mapHeight+'px');
+	$('#mapHolder').css('margin-top',$('.navbar-fixed-top').height()+'px');
+	//$('.navbar-right').css('width',window.navSearchWidth+'px');
+
+	if(!(window.width > 480) && $('#infoPanel').css('display') !== 'none'){
+		$('#map-canvas').css('height','50%');
+		$('#infoPanel').css('height','50%');
+	}else if(!(window.width > 480) && $('#directionsPanel').css('display') !== 'none'){
+		$('#map-canvas').css('height','50%');
+		$('#directionsPanel').css('height','50%');
+	}else if(window.isIE && window.width > 480 && ($('#infoPanel').css('display') !== 'none' || $('#directionsPanel').css('display') !== 'none')){
+		$('#map-canvas').css('height','100%');
+		$('#infoPanel').css('height','100%');
+		$('#directionsPanel').css('height','100%');
+		$('#map-canvas').css('width','70%');
+		$('#infoPanel').css('width','30%');
+		$('#directionsPanel').css('width','30%');
+	}else{
+		$('#map-canvas').css('height','100%');
+		$('#infoPanel').css('height','100%');
+		$('#directionsPanel').css('height','100%');
+	}
+
+	if(window.isIE && !(window.width > 480)){
+		$('#map-canvas').css('width','100%');
+		$('#infoPanel').css('width','100%');
+		$('#directionsPanel').css('width','100%');
+	}
+
+	if(window.isIE && ($('#infoPanel').css('display') == 'none' && $('#directionsPanel').css('display') == 'none')){
+		$('#map-canvas').css('width','100%');
+		$('#infoPanel').css('width','100%');
+		$('#directionsPanel').css('width','100%');
+	}
+
+
+	google.maps.event.trigger(window.map, 'resize');
+}
+
+$('#collapseButton').click(function(){
+	if($('#collapseBar').hasClass('collapse')){
+		$('#navBarLeft').hide();
+	}else{
+		$('#navBarLeft').slideToggle();
+	}
+});
+
+function initMap(){
+
+	var CUSTOM_MAPTYPE = 'custom_maptype';
+
+	var featureOpts = [
+		{
+		  stylers: [
+		    { hue: '#00285e' },
+		    { gamma: 0.8 },
+		  ]
+		},
+		{
+		  featureType: 'road.highway',
+		  elementType: 'geometry',
+		  stylers: [
+		    {  hue: '#DEB408'},
+		    { gamma: 1.00},
+		  ]
+		},
+		{
+		  featureType: 'road.local',
+		  elementType: 'geometry',
+		  stylers: [
+		    {  hue: '#DEB408'},
+		    { gamma: 2.00},
+		  ]
+		},
+		{
+		  featureType: 'road.local',
+		  elementType: 'geometry.stroke',
+		  stylers: [
+		    {  weight: 2.0}
+		  ]
+		},
+		{
+		  featureType: 'poi',
+		  elementType: 'geometry.fill',
+		  stylers: [
+		    {  hue: '#00285e'},
+		    { gamma: 1.80},
+		  ]
+		},
+		{
+		  featureType: 'landscape.man_made',
+		  elementType: 'geometry.fill',
+		  stylers: [
+		    {  hue: '#00285e'},
+		    { gamma: 1.80},
+		    { lightness: -30}
+		  ]
+		},
+	    {
+	      featureType: 'poi.business',
+	      elementType: 'labels',
+	      stylers: [
+	        { weight: 0.5 },
+	        { visibility: 'simplified'}
+	      ]
+	    },
+		{
+		  featureType: 'water',
+	      elementType: 'geometry',
+		  stylers: [
+		    { color: '#00285e' },
+		    { gamma: 1.5},
+		  ]
+		}
+	];
+
+	var mapOptions = {
+		center: new google.maps.LatLng(41.076,-81.512),
+		zoom:17,
+		mapTypeControlOptions: {
+			mapTypeIds: [google.maps.MapTypeId.ROADMAP, CUSTOM_MAPTYPE, google.maps.MapTypeId.SATELLITE]
+		},
+		mapTypeId: CUSTOM_MAPTYPE
+	};
+
+	window.map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
+
+	var styledMapOptions = {
+		name: 'UA Map'
+	};
+
+	var customMapType = new google.maps.StyledMapType(featureOpts, styledMapOptions);
+
+	window.map.mapTypes.set(CUSTOM_MAPTYPE, customMapType);
+
+	window.directionsDisplay = new google.maps.DirectionsRenderer({draggable:true});
+	window.directionsService = new google.maps.DirectionsService();
+}
+
+function initMarkers(){
+
+	window.buildingMarkers = {};
+
+	$.each(buildings, function(i, building){
+		latLng = new google.maps.LatLng(building.lat, building.lng);
+		window.buildingMarkers[building.id] = new google.maps.Marker({
+			position:latLng,
+			map:null,
+			title:building.name,
+			animation:google.maps.Animation.DROP
+		});
+	});
+
+	window.parkingMarkers = {};
+
+	$.each(parkingLots, function(i, lot){
+		latLng = new google.maps.LatLng(lot.lat, lot.lng);
+		if(i == 25){
+			icon = icons.visitorParking;
+		}else{
+			icon = icons.parking;
+		}
+		window.parkingMarkers[lot.id] = new google.maps.Marker({
+			position:latLng,
+			map:null,
+			title:'Lot '+lot.lot_number+' '+lot.name,
+			animation:google.maps.Animation.DROP,
+			icon:icon
+		});
+	});
+}
+
+function initInfoBoxes(){
+
+	//Handle
+	//Buildings
+	window.buildingBoxes = {};
+
+	$.each(buildings, function(i, building){
+		if(building.image_file === '' || building.image_file == 'NULL' || building.image_file == null){
+			imageContent = '';
+		}else{
+			imageContent = "<img style=\"max-width:250px;height:auto;\" src=\"https://maps.uakron.edu/img/"+building.image_file+'"></br>';
+		}
+
+		directionLink = '';
+		nearbyAccessibility = '';
+		$.each(parkingRelations, function(i, rel){
+			if(rel.building_id == building.id){
+				directionLink = '<a style="font-weight:bold;" href="#" id="lot'+rel.lot_number+'" onclick="openMarker(this)">Directions to nearest parking</a><br/>';
+				if(typeof parkingLots[rel.lot_number] !== 'undefined'){
+					nearbyAccessibility = '<a style="font-weight:bold;" href="#" id="lot'+rel.lot_number+'" onclick="openMarker(this)">Nearby Accessibility Spaces</a> - '+parkingLots[rel.lot_number].accessibility_total;
+				}
+			}
+		});
+
+		if(building.abbreviation){
+			abbrev = ' ('+building.abbreviation+') ';
+		}else{
+			abbrev = '';
+		}
+		if(building.html && building.html !== ''){
+			description = building.html+'<br/>';
+		}else{
+			description = '';
+		}
+		content = '<div id="buildingContent'+building.id+'">'+
+		'<h4 style="font-weight:bold;">'+building.name+abbrev+'</h4><br/>'+
+		description +
+		imageContent + '<br/>' +
+		'<a data-toggle="modal" href="#emailModal" onclick="fillEmailForm(\''+building.id+'\')" style="font-weight:bold;">Email Link</a><br/>' +
+		directionLink +
+		nearbyAccessibility +'<br/>'+
+		departmentContent([building.id]) +
+		'<hr/>'+
+		'</div>';
+
+		window.buildingBoxes[building.id] = content;
+
+		//Set up click handler on each marker
+		google.maps.event.addListener(window.buildingMarkers[building.id], 'click', function(){
+			openBuildingInfo(building);
+		});
+
+	});
+
+	//Handle
+	//Parking Lots
+	window.parkingBoxes = {};
+
+	$.each(parkingLots, function(i, lot){
+		window.parkingBoxes[lot.id] = parkingContent(lot.id);
+
+		//Set up click handler on each marker
+		google.maps.event.addListener(window.parkingMarkers[lot.id], 'click', function(){
+			openParkingInfo(lot);
+		});
+	});
+
+}
+
+function initGeolocation(){
+	// Try W3C Geolocation (Preferred)
+	window.hasGeolocation = false;
+	if(navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(function(position) {
+			window.loc = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+		});
+
+		svgPath = 'm 359.97231,332.81514 0,-81.47734 m 1e-5,533.47733 0,-81.47734 m 266.73867,-185.26132 -81.47735,0 m -370.52265,0 -75.477346,0 m 546.480646,0 c 0,156.21769 -126.63946,282.85715 -282.85715,282.85715 -156.21769,0 -282.857144,-126.63946 -282.857144,-282.85715 0,-156.21769 126.639454,-282.85715 282.857144,-282.85715 156.21769,0 282.85715,126.63946 282.85715,282.85715 z';
+
+		window.userMarker = new google.maps.Marker({
+			position:window.loc,
+			map:null,
+			title:'You are here',
+			animation:google.maps.Animation.Drop,
+			icon:{
+				path: svgPath,
+				scale:0.03,
+				strokeColor:'#0066FF',
+				fillColor:'#ff5050',
+				fillOpacity:0.5,
+				strokeWeight:3,
+				title: 'You are here!'
+			}
+		});
+
+		google.maps.event.addListener(window.userMarker, 'click', function () {
+			window.userHereBox.open(window.map, this);
+			setTimeout(function(){
+				$('#geoDropDownList').parent().parent().css('overflow','visible');
+				$('#geoDropDownList').parent().parent().parent().css('overflow','visible');
+			},100);
+		});
+
+		listArr = [];
+
+		$.each(buildings, function(i,building){
+			listArr.push(building);
+		});
+
+		$.each(parkingLots, function(i,lot){
+			listArr.push(lot);
+		});
+
+		listArr.sort(alphaComp);
+
+		list = '';
+
+		$.each(listArr,function(i,item){
+			if(typeof item !== 'undefined'){
+				if(typeof item.abbreviation !== 'undefined'){
+					//It's a building
+					if(item.abbreviation !== null && item.abbreviation !== 'NULL' && item.abbreviation !== ''){
+					abbrev = '('+item.abbreviation+') ';
+					}else{
+					abbrev = '';
+					}
+					list = list + '<li><a class="dropDownOptions" role="menuitem" href="#" onclick="geoDirections(window.userMarker,\''+item.id+'\')">'+abbrev+item.name.substring(0,39)+'</a></li>';
+				}else{
+					//It's a lot
+					list = list + '<li><a class="dropDownOptions" role="menuitem" href="#" onclick="geoDirections(window.userMarker,\'lot'+item.id+'\')">'+item.name.substring(0,39)+'</a></li>';
+				}
+			}
+		});
+
+		content = '<h5 style="text-align:center;font-weight:bold;">You are here!</h5>'+
+			'Get directions to a location</br>'+
+			'<div class="input-group container" style="width:100%;padding-bottom:.5em;">'+
+	    	'<span class="btn btn-primary dropdown-toggle" data-toggle="dropdown">'+
+	        '<span class="caret"></span> Locations <span class="caret"></span></span>'+
+	        '<ul id="geoDropDownList" class="dropdown-menu" role="menu" style="position:relative;height:400px;overflow:scroll;">'+
+	        list+
+	        '</ul>'+
+	        '</div>';
+
+		window.userHereBox = new google.maps.InfoWindow({
+			content: content
+		});
+
+
+		options = {
+			enableHighAccuracy: true,
+			timeout: 5000,
+			maximumAge: 0
+		};
+
+		window.isFirstGeo = true;
+
+		function updatePos(pos){
+			window.loc = new google.maps.LatLng(pos.coords.latitude,pos.coords.longitude);
+			if(window.isFirstGeo && pos.coords.accuracy < 150){
+				window.userMarker.setPosition(window.loc);
+				window.userMarker.setMap(window.map);
+				window.isFirstGeo = false;
+				window.userMarker.setAnimation(google.maps.Animation.BOUNCE);
+				setTimeout(function(){window.userMarker.setAnimation(null);},2200);
+				window.lastPos = window.loc;
+				return;
+			}
+
+			if(pos.coords.accuracy < 150 && typeof window.lastPos !== 'undefined' && (Math.abs((Number(window.lastPos.lat())-Number(window.loc.lat()))) > .0005 || Math.abs((Number(window.lastPos.lng())-Number(window.loc.lng()))) > .0005)){
+				window.userMarker.setPosition(window.loc);
+				window.userMarker.setMap(window.map);
+				window.userMarker.setAnimation(google.maps.Animation.BOUNCE);
+				setTimeout(function(){window.userMarker.setAnimation(null);},2200);
+				window.lastPos = window.loc;
+				return;
+			}else{
+				window.lastPos = window.loc;
+				return;
+			}
+		}
+
+		function failPos(){
+			return;
+		}
+
+		window.geoLocation = navigator.geolocation.watchPosition(updatePos,failPos,options);
+	}
+}
+
+function openBuildingInfo(building){
+	resetMarkers();
+
+	//Highlight Marker
+	window.buildingMarkers[building.id].setIcon(icons.green);
+
+	window.buildingMarkers[building.id].setAnimation(google.maps.Animation.BOUNCE);
+
+	setTimeout(function(){window.buildingMarkers[building.id].setAnimation(null);},2220);
+
+	//Change contents
+	$('#infoPanelBody').html(window.buildingBoxes[building.id]);
+
+	//Open Panel
+	$('#infoPanel').addClass('col-sm-4');
+	$('#infoPanel').show();
+	$('#directionsPanel').hide();
+
+	if(window.width <= 480){
+		$('#map-canvas').css('height','50%');
+		$('#infoPanel').css('height','50%');
+	}else{
+		$('#map-canvas').css('height','100%');
+		$('#infoPanel').css('height','100%');
+	}
+
+	$('#map-canvas').removeClass('col-sm-12');
+	$('#map-canvas').addClass('col-sm-8');
+	resize();
+	//Center Map
+	window.map.panTo(window.buildingMarkers[building.id].getPosition());
+
+}
+
+function openParkingInfo(lot){
+	resetMarkers();
+
+	//Highlight Marker
+	window.parkingMarkers[lot.id].setIcon(icons.green);
+	window.parkingMarkers[lot.id].setAnimation(google.maps.Animation.BOUNCE);
+
+	setTimeout(function(){window.parkingMarkers[lot.id].setAnimation(null);},2000);
+
+	//Change contents
+	$('#infoPanelBody').html(window.parkingBoxes[lot.id]);
+
+	//Add in streetView if present
+	if(parkingLots[lot.id].streetview_lng !== null){
+		$('#streetViewDiv').css('height','200px');
+		$('#streetViewDiv').css('width','250px');
+
+		panoOptions = {
+			position: new google.maps.LatLng(parkingLots[lot.id].streetview_lat,parkingLots[lot.id].streetview_lng),
+			pov: {
+				heading: Number(parkingLots[lot.id].streetview_heading),
+				pitch: Number(parkingLots[lot.id].streetview_pitch)
+			},
+			zoom: Number(parkingLots[lot.id].streetview_zoom),
+			disableDefaultUI: true,
+			disableDoubleClickZoom: true,
+			clickToGo: false,
+		};
+
+
+		window.streetViewPano = new google.maps.StreetViewPanorama(
+			document.getElementById('streetViewDiv'),
+			panoOptions);
+
+		window.streetViewPano.setVisible(true);
+	}
+
+	//Open Panel
+	$('#infoPanel').addClass('col-sm-4');
+	$('#infoPanel').show();
+	$('#directionsPanel').hide();
+	$('#map-canvas').removeClass('col-sm-12');
+	$('#map-canvas').addClass('col-sm-8');
+	resize();
+	//Center Map
+	window.map.panTo(window.parkingMarkers[lot.id].getPosition());
+}
+
+
+function closeInfoDiv(){
+	$('#infoPanel').removeClass('col-sm-4');
+	$('#infoPanel').hide();
+	$('#map-canvas').addClass('col-sm-12');
+	$('#map-canvas').removeClass('col-sm-8');
+	resize();
+}
+
+function fillEmailForm(id){
+
+	url = "https://maps.uakron.edu/map"+'?id='+id;
+	$('#emailLink').val(url);
+	$('#emailTo').val('');
+
+	if(id.indexOf('lot') == -1){
+		//It's a building
+		$address = buildings[id.replace('lot','')].address == null?'':buildings[id.replace('lot','')].address;
+		$('#emailMessage').val(buildings[id].name+'\n'+$address);
+	}else{
+		//It's a parking lot
+		$address = parkingLots[id.replace('lot','')].address == null?'':parkingLots[id.replace('lot','')].address;
+		$('#emailMessage').val(parkingLots[id.replace('lot','')].name+'\n'+$address+'\n');
+	}
+}
+
+function sendEmail(){
+	pass = true;
+	error = '';
+	if(!IsEmail($('#emailTo').val())){
+		pass = false;
+		error += 'Invalid To Email\n';
+	}
+
+	if(!IsEmail($('#emailFrom').val())){
+		pass = false;
+		error += 'Invalid From Email\n';
+	}
+
+	if(pass){
+		data = {};
+		data.to = $('#emailTo').val();
+		data.from = $('#emailFrom').val();
+		data.link = $('#emailLink').val();
+		data.message = $('#emailMessage').val();
+
+		$.ajax({
+			url:"https://maps.uakron.edu/email/sendMapLink",
+			type:'POST',
+			data:data
+		}).always(function(data){
+			$('#emailModal').modal('hide');
+		});
+	}else{
+		alert(error+'Please Try Again');
+	}
+
+}
+
+function IsEmail(email) {
+  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  return regex.test(email);
+}
+
+google.maps.event.addDomListener(window, 'load',init);
+
+function departmentContent(building_id){
+	count = 0;
+	content = '';
+
+	tmpDept = [];
+
+	$.each(departments, function(i, department){
+		tmpDept.push(department);
+	});
+
+	tmpDept.sort(alphaComp);
+
+	$.each(tmpDept, function(i, department){
+		if(department.building_id == building_id){
+			url = department.url;
+			if(url.indexOf('http') == -1){
+				url = 'http://www.uakron.edu'+url;
+			}
+			content += '<a href="'+url+'" style="font-weight:bold;">'+department.name+'</a><br/>';
+			count++;
+		}
+	});
+
+	if(count > 0){
+		return '<h4>Departments</h4> '+content;
+	}else{
+		return '';
+	}
+
+}
+
+function parkingContent(lot_number){
+	url = 'https://maps.uakron.edu/img/herman.png';
+	desc = '';
+	if(parkingLots[lot_number].description !== null){
+		desc = parkingLots[lot_number].html+'</br>';
+	}
+
+	list = '';
+	window.buildingsArr.sort(alphaComp);
+	$.each(buildingsArr, function(i,building){
+		if(typeof building !== 'undefined' ){
+			if(building.abbreviation !== null){
+				abbrev = ' ('+building.abbreviation+') ';
+			}else{
+				abbrev = '';
+			}
+			list = list + '<li><a id="building'+building.id+'" class="dropDownOptions" role="menuitem" href="#" onclick="getDirections('+lot_number+','+building.id+')">'+abbrev+building.name.substring(0,39)+'</a></li>';
+		}
+	});
+
+	content = '<h4 style="font-weight:bold;">'+parkingLots[lot_number].name+' (Lot '+parkingLots[lot_number].lot_number+')</h4>'+
+		'<div id="streetViewDiv" style="max-width:250px;max-height:250px;"></div>' +
+		desc +
+		'<br/><p><span style="font-weight:bold;">Address</span><br/>'+
+		''+parkingLots[lot_number].address+'<p>'+
+		'<img src="'+url+'" style="width:auto;max-height:32px;"> = '+parkingLots[lot_number].accessibility_total+
+		'<br/><span style="font-weight:bold;">Meters</span> = '+parkingLots[lot_number].meters_total+
+		'<br/><span style="font-weight:bold;">Total Spaces</span> = '+parkingLots[lot_number].spaces_total+'<br/>'+
+		'<a data-toggle="modal" href="#emailModal" onclick="fillEmailForm(\'lot'+lot_number+'\')" style="font-weight:bold;">Email Link</a><br/>' +
+		'<h4>Directions to a building<h4>'+
+		'<div class="input-group" style="width:100%;padding-bottom:.5em;">'+
+    	'<span class="btn btn-default btn-block dropdown-toggle" data-toggle="dropdown">'+
+        '<span class="caret"></span> Buildings <span class="caret"></span></span>'+
+        '<ul id="builddropDownList" class="dropdown-menu" role="menu" style="overflow:scroll;">'+
+        list+
+        '</ul>'+
+        '</div>'+
+        '<h4>Directions to this lot<h4>'+
+		'<div class="input-group" ><input class="form-control directionsInput" type="text" placeholder="Starting Address" id="dirAddressLot'+lot_number+'"/>'+
+		'<a href="#" onclick="getDirections('+lot_number+')" class="btn btn-default input-group-addon">Get Directions</a></div>';	return content;
+}
+
+function showCategory(id,filter){
+	if(typeof filter == 'undefined'){
+		filter = true;
+	}
+	closeInfoDiv();
+	closeDirections();
+
+	//Hide everything first
+	$.each(window.buildingMarkers, function(i, marker){
+		marker.setMap(null);
+	});
+
+	$.each(window.parkingMarkers, function(i, marker){
+		marker.setMap(null);
+	});
+
+	//Wipe out the searchList so it's ready to populate
+	window.searchList = [];
+
+	posArr = [];
+	//id 7 is parking lots, -1 means all buildings, anything else select by id and use the buildingCategories object
+	if(id == 7){
+		$('#locationButton').html('Parking&nbsp<span class="caret"></span> ');
+		$.each(window.parkingMarkers, function(i, marker){
+			marker.setMap(window.map);
+			window.searchList.push(window.parkingLots[i]);
+			posArr.push({lat:parkingLots[i].lat,lng:parkingLots[i].lng});
+		});
+	}else if(id == -1){
+		$('#locationButton').html('Locations&nbsp<span class="caret"></span>');
+		$.each(window.buildingMarkers, function(i, marker){
+			marker.setMap(window.map);
+			window.searchList.push(window.buildings[i]);
+			posArr.push({lat:buildings[i].lat,lng:buildings[i].lng});
+		});
+		$.each(window.parkingMarkers, function(i, marker){
+			marker.setMap(window.map);
+			window.searchList.push(window.parkingLots[i]);
+			posArr.push({lat:parkingLots[i].lat,lng:parkingLots[i].lng});
+		});
+		$.each(window.departments, function(i, dept){
+			window.searchList.push(dept);
+		});
+	}else{
+		if(id !== 0){
+			$('#locationButton').html(categories[id].name+'&nbsp<span class="caret"></span>');
+		}else{
+			$('#locationButton').html('Locations&nbsp<span class="caret"></span>');
+		}
+		$.each(window.buildingCategories, function(i, building){
+			//There may be some buildingCategories associated with inactive building.  Hence the undefined check
+			if(building.category_id == id && typeof window.buildingMarkers[building.building_id] !== 'undefined'){
+				window.buildingMarkers[building.building_id].setMap(window.map);
+				window.searchList.push(window.buildings[building.building_id]);
+				posArr.push({lat:buildings[building.building_id].lat,lng:buildings[building.building_id].lng});
+			}
+		});
+	}
+
+	latTot = 0;
+	latCount = 0;
+	lngTot = 0;
+	lngCount = 0;
+	minLat = 41.076;
+	minLng = -81.512;
+	maxLat = 41.076;
+	maxLng = -81.512;
+
+	$.each(posArr, function(i, arr){
+		latTot += Number(arr.lat);
+		lngTot += Number(arr.lng);
+
+		lngCount++;
+		latCount++;
+
+		if(minLat > arr.lat){
+			minLat = arr.lat;
+		}
+		if(minLng > arr.lng){
+			minLng = arr.lng;
+		}
+		if(maxLat < arr.lat){
+			maxLat = arr.lat;
+		}
+		if(maxLng < arr.lng){
+			maxLng = arr.lng;
+		}
+	});
+
+	latLng = new google.maps.LatLng(latTot/latCount,lngTot/lngCount);
+	window.map.panTo(latLng);
+
+	// sw = new google.maps.LatLng(minLat,maxLng);
+	// ne = new google.maps.LatLng(maxLat,minLng);
+	// bounds = new google.maps.LatLngBounds(sw,ne);
+	// window.map.fitBounds(bounds);
+	if(filter){
+		filterSearch('');
+	}
+}
+
+
+function openMarker(elem){
+	//It's a building
+	if($(elem).attr('id').indexOf('building') !== -1){
+		id = $(elem).attr('id').replace('building','');
+		window.buildingMarkers[id].setMap(window.map);
+		openBuildingInfo(buildings[id]);
+
+	}else{//It's a parking Lot
+		id = $(elem).attr('id').replace('lot','');
+		window.parkingMarkers[id].setMap(window.map);
+		openParkingInfo(parkingLots[id]);
+
+		//Register keyhandler
+		$(".directionsInput").keyup(function(e){
+			if(e.keyCode == 13){
+				getDirections($(".directionsInput").attr('id').replace('dirAddressLot',''));
+			}
+		});
+
+	}
+}
+
+function resetMarkers(){
+	//UnHighlight all other markers
+	$.each(window.buildingMarkers, function(i, marker){
+		marker.setIcon();
+		marker.setAnimation(null);
+	});
+	$.each(window.parkingMarkers, function(i, marker){
+		if(i == 25){
+			marker.setIcon(icons.visitorParking);
+		}else{
+			marker.setIcon(icons.parking);
+		}
+			marker.setAnimation(null);
+	});
+}
+
+
+//Directions Service
+function getDirections(lot_number,buildingId){
+	if(typeof buildingId == 'undefined'){
+		//end = parkingLots[lot_number].address+lot' akron ohio';
+		end = new google.maps.LatLng(parkingLots[lot_number].lat,parkingLots[lot_number].lng);
+		start = $('#dirAddressLot'+lot_number).val();
+		dirType = "DRIVING";
+	}else{
+		end = new google.maps.LatLng(buildings[buildingId].lat,buildings[buildingId].lng);
+		start = new google.maps.LatLng(parkingLots[lot_number].lat,parkingLots[lot_number].lng);
+		dirType = "WALKING";
+	}
+
+	window.directionsRequest = {
+		origin:start,
+		destination:end,
+		travelMode: google.maps.TravelMode[dirType]
+	};
+
+	window.directionsService.route(window.directionsRequest, function(response, status){
+		if(status == google.maps.DirectionsStatus.OK){
+			directionsDisplay.setDirections(response);
+			directionsDisplay.setMap(map);
+			directionsDisplay.setPanel(document.getElementById('directionsPanelBody'));
+			$('#directionsPanel').addClass('col-sm-4');
+			$('#directionsPanel').show();
+			$('#infoPanel').hide();
+			$('#map-canvas').removeClass('col-sm-12');
+			$('#map-canvas').addClass('col-sm-8');
+			directionType(dirType);
+			resize();
+		}
+	});
+
+}
+
+//Directions Service
+function geoDirections(marker,id){
+	window.userHereBox.close();
+	if(id.indexOf('lot') == -1){
+		//It's a building
+		end = new google.maps.LatLng(buildings[id].lat,buildings[id].lng);
+		start = marker.position;
+		dirType = "WALKING";
+	}else{
+		//It's a parking lot
+		end = new google.maps.LatLng(parkingLots[id.replace('lot','')].lat,parkingLots[id.replace('lot','')].lng);
+		start = marker.position;
+		dirType = "WALKING";
+	}
+
+	window.directionsRequest = {
+		origin:start,
+		destination:end,
+		travelMode: google.maps.TravelMode[dirType]
+	};
+
+	window.directionsService.route(window.directionsRequest, function(response, status){
+		if(status == google.maps.DirectionsStatus.OK){
+			directionsDisplay.setDirections(response);
+			directionsDisplay.setMap(map);
+			directionsDisplay.setPanel(document.getElementById('directionsPanelBody'));
+			$('#directionsPanel').addClass('col-sm-4');
+			$('#directionsPanel').show();
+			$('#infoPanel').hide();
+			$('#map-canvas').removeClass('col-sm-12');
+			$('#map-canvas').addClass('col-sm-8');
+			directionType(dirType);
+			resize();
+		}
+	});
+
+}
+
+function directionType(type){
+	window.directionsRequest.travelMode = google.maps.TravelMode[type];
+	window.directionsService.route(window.directionsRequest, function(response, status){
+		if(status == google.maps.DirectionsStatus.OK){
+			directionsDisplay.setDirections(response);
+			$('.directionButtons').each(function(){
+				$(this).removeClass('disabled');
+			});
+			$('#directions'+type).addClass('disabled');
+		}
+	});
+}
+
+function closeDirections(){
+	$('#directionsPanel').hide();
+	$('#directionsPanel').removeClass('col-sm-4');
+	$('#directionsPanelBody').html('');
+	$('#map-canvas').removeClass('col-sm-8');
+	$('#map-canvas').addClass('col-sm-12');
+	directionsDisplay.setMap(null);
+	resetMarkers();
+	resize();
+}
+
+//Search Filtering Business
+
+var selection = -1;
+var prev = -1;
+
+$('#dropDownSearch').keyup(function(e){
+	if (e.keyCode !== 38 && e.keyCode !== 40) {
+		filterSearch($(this).val());
+		selection = -1;
+	}
+});
+
+$('#dropDownSearch').keyup(function(e){
+	var dropDownOptionsArr = [];
+	$('.dropDownOptions').each(function(i,thisOption){
+		dropDownOptionsArr[i] = $(this).attr('id');
+	});
+
+	if(e.keyCode == 38 || e.keyCode == 40){
+
+		if (e.keyCode == 38 ) {
+			if(selection == -1){
+				$('#'+dropDownOptionsArr[0]).css('background-color','#428bca');
+				$('#'+dropDownOptionsArr[0]).css('color','#fff');
+				selection = 0;
+			}else if(selection == 0){
+				$('#'+dropDownOptionsArr[0]).css('background-color','#fff');
+				$('#'+dropDownOptionsArr[0]).css('color','#333');
+				$('#'+dropDownOptionsArr[dropDownOptionsArr.length-1]).css('background-color','#428bca');
+				$('#'+dropDownOptionsArr[dropDownOptionsArr.length-1]).css('color','#fff');
+				selection = dropDownOptionsArr.length-1;
+			}else{
+				$('#'+dropDownOptionsArr[selection]).css('background-color','#fff');
+				$('#'+dropDownOptionsArr[selection]).css('color','#333');
+				$('#'+dropDownOptionsArr[(selection-1)%dropDownOptionsArr.length]).css('background-color','#428bca');
+				$('#'+dropDownOptionsArr[(selection-1)%dropDownOptionsArr.length]).css('color','#fff');
+				selection = (selection-1)%dropDownOptionsArr.length;
+			}
+		}else if (e.keyCode == 40){
+			if(selection == -1){
+				$('#'+dropDownOptionsArr[0]).css('background-color','#428bca');
+				$('#'+dropDownOptionsArr[0]).css('color','#fff');
+				selection = 0;
+			}else{
+				$('#'+dropDownOptionsArr[selection]).css('background-color','#fff');
+				$('#'+dropDownOptionsArr[selection]).css('color','#333');
+				$('#'+dropDownOptionsArr[(selection+1)%dropDownOptionsArr.length]).css('background-color','#428bca');
+				$('#'+dropDownOptionsArr[(selection+1)%dropDownOptionsArr.length]).css('color','#fff');
+				selection = (selection+1)%dropDownOptionsArr.length;
+			}
+		}
+	}else if(e.keyCode == 13){
+		if(selection >= 0){
+			$('#dropDownList').parent().removeClass('open');
+			$('#dropDownSearch').val($('#'+dropDownOptionsArr[selection]).text());
+			openMarker($('#'+dropDownOptionsArr[selection]));
+		}else{
+			$('#dropDownList').parent().removeClass('open');
+			$('#dropDownSearch').val($('#'+dropDownOptionsArr[0]).text());
+			openMarker($('#'+dropDownOptionsArr[0]));
+		}
+	}
+});
+
+//When passed input, narrow the dropdown search list based on input
+//Resize list and page before exit
+function filterSearch(input){
+
+	$('#dropDownList').css('height','auto');
+	$('#dropDownList').css('overflow','scroll');
+
+	var matches = [];
+	window.searchList.sort(alphaComp);
+	$.each(window.searchList, function(i, item){
+		var reg = new RegExp(input.split('').join('\\w*').replace(/\W/, ""), 'i');
+		//Match Names
+		if (item.name.match(reg)) {
+			matches[i] = item.name;
+		}
+		//Match Abbreviations
+		if(typeof item.abbreviation !== 'undefined' && item.abbreviation !== null){
+			if(item.abbreviation.match(reg)){
+				matches[i] = item.name;
+			}
+		}
+		//Match Lot Numbers
+		if(typeof item.lot_number !== 'undefined'){
+			if(item.lot_number.match(reg)){
+				matches[i] = item.name;
+			}
+		}
+
+	});
+
+	$('#dropDownList').html('');
+	$.each(matches, function(id, text){
+		if(typeof text !== 'undefined')
+			if(typeof window.searchList[id].lights == 'undefined'){
+				//It's either a building or a department
+				if(typeof window.searchList[id].order == 'undefined'){
+					//It's a Building!
+					if(window.searchList[id].abbreviation !== null){
+						abbrev = ' ('+window.searchList[id].abbreviation+') ';
+					}else{
+						abbrev = '';
+					}
+
+					$('#dropDownList').append('<li><a id="building'+window.searchList[id].id+'" class="dropDownOptions" role="menuitem" href="#" onclick="openMarker(this)">'+window.searchList[id].name.substring(0,39)+abbrev+'</a></li>');
+				}else{
+					//It's a department!
+					$('#dropDownList').append('<li><a id="building'+window.searchList[id].building_id+'" class="dropDownOptions" role="menuitem" href="#" onclick="openMarker(this)">'+window.searchList[id].name.substring(0,39)+'</a></li>');
+				}
+			}else{
+				//It's a parking lot!
+				$('#dropDownList').append('<li><a id="lot'+window.searchList[id].id+'" class="dropDownOptions" role="menuitem" href="#" onclick="openMarker(this)">'+window.searchList[id].name.substring(0,39)+' (Lot '+window.searchList[id].lot_number+')</a></li>');
+			}
+	});
+
+	setTimeout(function(){resize()},100);
+	setTimeout(function(){resizeList(input)},100);
+}
+
+function resizeList(input){
+	if(input.length > 0){
+		$('#dropDownList').parent().addClass('open');
+		$('#dropDownList').removeClass('display');
+	}
+
+	if($('#dropDownList').height() >= .8*screen.height){
+		$('#dropDownList').css('height',''+(screen.height*.8)+'px');
+		$('#dropDownList').css('overflow','scroll');
+	}else{
+		$('#dropDownList').css('overflow','auto');
+		$('#dropDownList').css('height','');
+	}
+}
+
+function alphaComp(a,b){
+	if(a.name < b.name)
+		return -1;
+	if(a.name > b.name)
+		return 1;
+	return 0;
+}
+
+
+
+</script>
+</html>

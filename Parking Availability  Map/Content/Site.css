@@ -1,11 +1,11 @@
-﻿* {
+﻿/** {
     -webkit-box-sizing: content-box !important;
     -moz-box-sizing: content-box !important;
     box-sizing: content-box !important;
-}
+}*/
 
 body {
-    font-family: Roboto;
+    font-family: Roboto !important;
 }
 
 html {
@@ -98,7 +98,7 @@ body {
 
 sub {
     font-weight: 100;
-    font-size: 12px;
+    font-size: 12px !important;
     text-transform: uppercase;
 }
 
@@ -147,6 +147,9 @@ sub {
     color: #fff;
     padding: 2px 0px;
     margin: 5px 0 15px 0;
+    -webkit-box-sizing: content-box !important;
+    -moz-box-sizing: content-box !important;
+    box-sizing: content-box !important;
 }
 
 #capacity-neg {
@@ -182,7 +185,7 @@ sub {
     margin: auto;
     margin-left: 20px;
     color: #fff;
-    -webkit-flex-grow:100;
+    -webkit-flex-grow: 100;
     flex-grow: 100;
     font-size: 18px;
     font-weight: 600;
@@ -250,11 +253,11 @@ sub {
 
     #subToolbar, #footer {
         font-size: 38px;
-        line-height: 3;
+        line-height: 2.5;
     }
 
     sub {
-        font-size: 48px;
+        font-size: 48px !important;
         line-height: 1.5;
     }
 
@@ -275,10 +278,15 @@ sub {
         font-size: 32px;
     }
 
-    #api-container div{
-        font-size:30px;
+    #api-container div {
+        font-size: 30px;
     }
-    .page-title{
-         font-size:50px !important;
+
+    .page-title {
+        font-size: 50px !important;
+    }
+
+    .dropdown-menu{
+        font-size:40px;
     }
 }

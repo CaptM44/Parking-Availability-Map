@@ -20,6 +20,12 @@ namespace Parking_Availability_Map
             );
 
             routes.MapRoute(
+             name: "Default",
+             url: "Main/{action}/{param}",
+             defaults: new { controller = "Main", action = "Lot", param = UrlParameter.Optional }
+          );
+
+            routes.MapRoute(
               name: "Main",
               url: "{action}/{param}",
               defaults: new { controller = "Main", action = "Lot", param = UrlParameter.Optional }
