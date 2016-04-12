@@ -146,7 +146,7 @@ $(function () {
     //10 rows
     var rows = [
         { spots: 24, style: "top: 623px; right: 185px; -webkit-flex-direction: row-reverse", direction: 'left' },
-        { spots: 19, style: "bottom: 110px; left: 54px; -webkit-flex-direction: column-reverse", direction: 'top' },
+        { spots: 19, style: "bottom: 106px; left: 54px; -webkit-flex-direction: column-reverse", direction: 'top' },
         { spots: 28, style: "top: 27px; left: 184px; -webkit-flex-direction: row", direction: 'right' },
         { spots: 18, style: "top: 84px; right: 56px; -webkit-flex-direction: column", direction: 'bottom' },
         { spots: 26, style: "top: 512px; right: 173px; -webkit-flex-direction: row-reverse", direction: 'left' },
