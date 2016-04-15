@@ -1,0 +1,35 @@
+﻿.page-title {
+    text-align: left;
+    padding: 5px 10px;
+    font-size: 26px;
+    border-bottom: 1px solid #ccc;
+}
+
+.page-content td {
+    padding: 5px 0px;
+}
+
+#about-container {
+    margin: 20px auto;
+    font-size: 20px;
+    text-align: center;
+    padding: 0px 30px;
+    max-width: 1000px;
+}
+
+
+    #about-container > div {
+        display: inline-block;
+        text-align: left;
+    }
+
+#cars {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#people{
+    white-space:pre;
+    color:#7BAECA;
+    text-align:right;
+}

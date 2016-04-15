@@ -289,4 +289,13 @@ sub {
     .dropdown-menu{
         font-size:40px;
     }
+
+    .page-content{
+        font-size:45px;
+    }
+
+     #people{
+        font-size:40px;
+    }
+
 }
